@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bdl_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:Meruert19}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update  # update | create | validate | none
+    show-sql: true
+
+logging:
+  file:
+    name: /app/logs/bdl-backend.log
+  level:
+    root: ${ROOT_LOGGING_LEVEL:INFO}
+    kz:
+      altyn:
+        i:
+          contactservice:
+            external:
+              client: DEBUG
+  pattern:
+    console: ${LOGGING_FORMAT:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} [%X{rid:-00000000000000000000000000000000}] %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx}
+    file: ${LOGGING_FORMAT:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} [%X{rid:-00000000000000000000000000000000}] %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx}
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 10
+
+springdoc:
+  api-docs:
+    enabled: true  # Включает генерацию API-документации
+    path: /v3/api-docs  # Указывает путь к JSON-документации
+  swagger-ui:
+    enabled: true  # Включает Swagger UI
+    path: /swagger-ui.html  # URL для UI
+    operations-sorter: method  # Сортировка методов (по порядку в контроллере)
+    tags-sorter: alpha  # Сортировка тегов в алфавитном порядке
+  show-actuator: true  # Включает отображение эндпоинтов Spring Actuator (если используются)
