@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>APK Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>APK Details</h2>
+            <div>
+                <a th:href="@{/apk-view/edit/{id}(id=${apk.id})}" class="btn btn-warning">Edit</a>
+                <a href="/apk-view" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">ID:</div>
+                    <div class="col-md-9" th:text="${apk.id}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Location ID:</div>
+                    <div class="col-md-9">
+                        <a th:href="@{/location-view/{id}(id=${apk.locationId})}" 
+                           class="btn btn-outline-primary btn-sm" 
+                           th:text="${apk.locationId}">
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Device Number:</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Certificate Number:</div>
+                    <div class="col-md-9" th:text="${apk.certNumber}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Certificate Issue Date:</div>
+                    <div class="col-md-9" th:text="${#temporals.format(apk.certIssue, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Certificate Expiry Date:</div>
+                    <div class="col-md-9" th:text="${#temporals.format(apk.certExpiry, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h3>Associated Cameras</h3>
+            <a th:href="@{/camera-view/apk/{id}(id=${apk.id})}" class="btn btn-primary">View Cameras</a>
+        </div>
+    </div>
+</body>
+</html> 

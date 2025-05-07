@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Edit Vshep Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Edit Vshep Data</h2>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="clientId" class="form-label">Client ID</label>
+                                <input type="text" class="form-control" id="clientId" name="clientId" th:value="${vshepData.clientId}">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="serviceId" class="form-label">Service ID</label>
+                                <input type="text" class="form-control" id="serviceId" name="serviceId" th:value="${vshepData.serviceId}">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="senderId" class="form-label">Sender ID</label>
+                                <input type="text" class="form-control" id="senderId" name="senderId" th:value="${vshepData.senderId}">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="senderPwd" class="form-label">Sender Password</label>
+                                <input type="password" class="form-control" id="senderPwd" name="senderPwd" placeholder="Leave blank to keep current password">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="certpwd" class="form-label">Certificate Password</label>
+                                <input type="password" class="form-control" id="certpwd" name="certpwd" placeholder="Leave blank to keep current password">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="url" class="form-label">URL</label>
+                                <input type="url" class="form-control" id="url" name="url" th:value="${vshepData.URL}">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="cert" class="form-label">Certificate File (.p12)</label>
+                                <input type="file" class="form-control" id="cert" name="cert" accept=".p12">
+                                <small class="form-text text-muted">Leave empty to keep current certificate</small>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <a href="/vshep-data-view" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

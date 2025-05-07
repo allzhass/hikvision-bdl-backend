@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Location Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Location Details</h2>
+            <div>
+                <a th:href="@{/apk-view/location/{id}(id=${location.id})}" 
+                   class="btn btn-info me-2">View APKs</a>
+                <a th:href="@{/location-view/edit/{id}(id=${location.id})}" 
+                   class="btn btn-primary me-2">Edit</a>
+                <a th:href="@{/location-view}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-sm-4">ID</dt>
+                            <dd class="col-sm-8" th:text="${location.id}"></dd>
+
+                            <dt class="col-sm-4">Region</dt>
+                            <dd class="col-sm-8">
+                                <a th:href="@{/region-view/{id}(id=${location.regionId})}" 
+                                   class="btn btn-outline-primary btn-sm" 
+                                   th:text="${location.regionId}">
+                                </a>
+                            </dd>
+
+                            <dt class="col-sm-4">Name (Russian)</dt>
+                            <dd class="col-sm-8" th:text="${location.nameRu}"></dd>
+
+                            <dt class="col-sm-4">Name (Kazakh)</dt>
+                            <dd class="col-sm-8" th:text="${location.nameKz}"></dd>
+
+                            <dt class="col-sm-4">Name (English)</dt>
+                            <dd class="col-sm-8" th:text="${location.nameEn}"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

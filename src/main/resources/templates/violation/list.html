@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Violations List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Violations</h1>
+            <a href="/violation-view/add" class="btn btn-primary">Add Violation</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Oper Code</th>
+                        <th>Hik Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="violation : ${violations}">
+                        <td th:text="${violation.id}"></td>
+                        <td th:text="${violation.code}"></td>
+                        <td th:text="${violation.operCode}"></td>
+                        <td th:text="${violation.hikCode}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

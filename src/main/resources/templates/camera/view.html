@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Camera Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Camera Details</h2>
+            <div>
+                <a th:href="@{/camera-view/edit/{id}(id=${camera.id})}" class="btn btn-warning">Edit</a>
+                <a href="/camera-view" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">ID:</div>
+                    <div class="col-md-9" th:text="${camera.id}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">APK ID:</div>
+                    <div class="col-md-9">
+                        <a th:href="@{/apk-view/{id}(id=${camera.apkId})}" 
+                           class="btn btn-outline-primary btn-sm" 
+                           th:text="${camera.apkId}">
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Name:</div>
+                    <div class="col-md-9" th:text="${camera.name}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">IP Address:</div>
+                    <div class="col-md-9" th:text="${camera.ip}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Code:</div>
+                    <div class="col-md-9" th:text="${camera.code}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Direction:</div>
+                    <div class="col-md-9" th:text="${camera.direction}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Brand:</div>
+                    <div class="col-md-9" th:text="${camera.brand}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Collection Days:</div>
+                    <div class="col-md-9" th:text="${camera.collectionDays}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">APK ID:</div>
+                    <div class="col-md-9" th:text="${camera.apkId}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

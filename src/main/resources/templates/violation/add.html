@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Add Violation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">Add New Violation</h2>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/violation-view/add}" th:object="${violation}" method="post">
+                                <div class="mb-3">
+                                    <label for="code" class="form-label">Code</label>
+                                    <input type="text" class="form-control" id="code" th:field="*{code}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="operCode" class="form-label">Oper Code</label>
+                                    <input type="text" class="form-control" id="operCode" th:field="*{operCode}">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="hikCode" class="form-label">Hik Code</label>
+                                    <input type="text" class="form-control" id="hikCode" th:field="*{hikCode}">
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <a href="/violation-view" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Add Violation</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

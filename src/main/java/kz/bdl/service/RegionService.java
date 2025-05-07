@@ -9,4 +9,7 @@ public interface RegionService {
     List<RegionDTO> getAllRegions();
     List<RegionDTO> getAllRegionsHasLocation();
     ResponseEntity<String> addRegion(RegionDTO regionDTO);
+    RegionDTO getRegionById(Long id);
+    List<RegionDTO> getRegionsByVshepDataId(Long vshepDataId);
+    ResponseEntity<String> changeRegion(RegionDTO regionDTO);
 }

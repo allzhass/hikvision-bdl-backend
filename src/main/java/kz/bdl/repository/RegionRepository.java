@@ -11,4 +11,6 @@ import java.util.List;
 public interface RegionRepository extends JpaRepository<Region, Long> {
     @Query("SELECT r FROM Region r WHERE EXISTS (SELECT 1 FROM Location l WHERE l.region.id = r.id)")
     List<Region> findAllWithLocations();
+
+    List<Region> findByVshepDataId(Long vshepDataId);
 }

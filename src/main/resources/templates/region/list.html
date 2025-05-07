@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Regions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Regions</h1>
+            <div>
+                <a href="/region-view/add" class="btn btn-primary">Add Region</a>
+                <a href="/region-view/has-location" class="btn btn-info">Show Regions with Locations</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Name (RU)</th>
+                        <th>Name (KZ)</th>
+                        <th>Name (EN)</th>
+                        <th>Vshep Data ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="region : ${regions}">
+                        <td th:text="${region.id}"></td>
+                        <td th:text="${region.code}"></td>
+                        <td th:text="${region.nameRu}"></td>
+                        <td th:text="${region.nameKz}"></td>
+                        <td th:text="${region.nameEn}"></td>
+                        <td>
+                            <a th:href="@{/vshep-data-view/{id}(id=${region.vshepDataId})}" 
+                               class="btn btn-outline-primary btn-sm" 
+                               th:text="${region.vshepDataId}">
+                            </a>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/region-view/{id}(id=${region.id})}" class="btn btn-info btn-sm">View</a>
+                                <a th:href="@{/region-view/edit/{id}(id=${region.id})}" class="btn btn-warning btn-sm">Edit</a>
+                                <a th:href="@{/location-view/region/{id}(id=${region.id})}" class="btn btn-success btn-sm">View Locations</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
