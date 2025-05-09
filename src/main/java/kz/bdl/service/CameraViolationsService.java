@@ -1,6 +1,5 @@
 package kz.bdl.service;
 
-import kz.bdl.dto.CameraDTO;
 import kz.bdl.dto.CameraViolationDTO;
 import org.springframework.http.ResponseEntity;
 
