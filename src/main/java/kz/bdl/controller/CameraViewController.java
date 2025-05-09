@@ -2,7 +2,9 @@ package kz.bdl.controller;
 
 import kz.bdl.dto.CameraDTO;
 import kz.bdl.service.CameraService;
+import kz.bdl.service.CameraViolationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class CameraViewController {
     @Autowired
     private CameraService cameraService;
+    @Autowired
+    private CameraViolationsService cameraViolationsService;
 
     @GetMapping
     public String getAllCamera(Model model) {
@@ -22,6 +26,7 @@ public class CameraViewController {
     @GetMapping("/{id}")
     public String getCameraById(@PathVariable Long id, Model model) {
         model.addAttribute("camera", cameraService.getCameraById(id));
+        model.addAttribute("violations", cameraViolationsService.getCameraViolationsByCameraId(id));
         return "camera/view";
     }
 
@@ -54,5 +59,11 @@ public class CameraViewController {
         cameraDTO.setId(id);
         cameraService.changeCamera(cameraDTO);
         return "redirect:/camera-view";
+    }
+
+    @PostMapping("/violation/{id}/toggle-erap")
+    @ResponseBody
+    public ResponseEntity<String> toggleIsSendErap(@PathVariable Long id, @RequestParam Boolean isSendErap) {
+        return cameraViolationsService.updateIsSendErap(id, isSendErap);
     }
 } 

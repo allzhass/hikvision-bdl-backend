@@ -4,6 +4,8 @@
 <head>
     <title>Camera Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
     <div layout:fragment="content">
@@ -60,6 +62,84 @@
                 </div>
             </div>
         </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="mb-0">Violations</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Violation Code</th>
+                                <th>Oper Code</th>
+                                <th>Hik Code</th>
+                                <th>Sent to ERAP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="violation : ${violations}">
+                                <td th:text="${violation.id}"></td>
+                                <td th:text="${violation.violation.code}"></td>
+                                <td th:text="${violation.violation.operCode}"></td>
+                                <td th:text="${violation.violation.hikCode}"></td>
+                                <td>
+                                    <button th:data-id="${violation.id}"
+                                            th:data-status="${violation.isSendErap}"
+                                            class="btn btn-sm toggle-erap"
+                                            th:classappend="${violation.isSendErap ? 'btn-success' : 'btn-secondary'}">
+                                        <span th:text="${violation.isSendErap ? 'Yes' : 'No'}"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(violations)}">
+                                <td colspan="5" class="text-center">No violations found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.toggle-erap').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        const currentStatus = this.dataset.status === 'true';
+                        const newStatus = !currentStatus;
+                        
+                        // Get CSRF token from meta tag
+                        const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+                        
+                        fetch(`/camera-view/violation/${id}/toggle-erap?isSendErap=${newStatus}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                [header]: token
+                            }
+                        })
+                        .then(response => response.text())
+                        .then(result => {
+                            if (result.includes('successfully')) {
+                                this.dataset.status = newStatus;
+                                this.textContent = newStatus ? 'Yes' : 'No';
+                                this.classList.remove('btn-success', 'btn-secondary');
+                                this.classList.add(newStatus ? 'btn-success' : 'btn-secondary');
+                            } else {
+                                alert('Failed to update status');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to update status');
+                        });
+                    });
+                });
+            });
+        </script>
     </div>
 </body>
 </html> 

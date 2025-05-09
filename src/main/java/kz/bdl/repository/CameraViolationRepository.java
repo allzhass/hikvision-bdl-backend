@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CameraViolationRepository extends JpaRepository<CameraViolation, Long> {
-    List<CameraViolation> findByCameraId(Long cameraId);
+    List<CameraViolation> findByCameraIdOrderByIsSendErapDesc(Long cameraId);
 }

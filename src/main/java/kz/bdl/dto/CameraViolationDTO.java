@@ -1,5 +1,7 @@
 package kz.bdl.dto;
 
+import kz.bdl.entity.Camera;
+import kz.bdl.entity.Violation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CameraViolationDTO {
     private Long id;
-    private Long cameraId;
-    private Long violationId;
+    private Camera camera;
+    private Violation violation;
     private Boolean isSendErap;
 }

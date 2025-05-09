@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CameraViolationConverter {
     public CameraViolationDTO toDTO(CameraViolation cameraViolation) {
-        return new CameraViolationDTO(cameraViolation.getId(), cameraViolation.getCamera().getId(), cameraViolation.getViolation().getId(), cameraViolation.getIsSendErap());
+        return new CameraViolationDTO(cameraViolation.getId(), cameraViolation.getCamera(), cameraViolation.getViolation(), cameraViolation.getIsSendErap());
     }
     public CameraViolation toEntity(CameraViolationDTO dto, Camera camera, Violation violation) {
         return new CameraViolation(dto.getId(), camera, violation, dto.getIsSendErap());
