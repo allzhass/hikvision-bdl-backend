@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Edit Violation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Edit Violation</h2>
+            <a href="/violation-view" class="btn btn-secondary">Back to List</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/violation-view/edit/{id}(id=${violation.id})}" th:object="${violation}" method="post">
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="code" th:field="*{code}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="operCode" class="form-label">Oper Code</label>
+                        <input type="text" class="form-control" id="operCode" th:field="*{operCode}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="hikCode" class="form-label">Hikvision Code</label>
+                        <input type="text" class="form-control" id="hikCode" th:field="*{hikCode}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Violation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

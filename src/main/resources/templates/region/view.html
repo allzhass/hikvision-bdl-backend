@@ -17,7 +17,13 @@
                         <p><strong>Code:</strong> <span th:text="${region.code}"></span></p>
                         <p><strong>Name (KZ):</strong> <span th:text="${region.nameKz}"></span></p>
                         <p><strong>Name (EN):</strong> <span th:text="${region.nameEn}"></span></p>
-                        <p><strong>Vshep Data ID:</strong> <span th:text="${region.vshepDataId}"></span></p>
+                        <p>
+                            <strong>Vshep Data ID:</strong>
+                            <a th:href="@{/vshep-data-view/{id}(id=${region.vshepDataId})}"
+                               class="btn btn-outline-primary btn-sm"
+                               th:text="${region.vshepDataId}">
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div class="mt-3">

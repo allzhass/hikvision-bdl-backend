@@ -12,10 +12,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ViolationServiceImpl implements ViolationService {
+public class ViolationServiceImpl implements ViolationService
+{
     @Autowired
     private ViolationRepository violationRepository;
     @Autowired private ViolationConverter violationConverter;
+
+    @Override
+    public ViolationDTO getViolationById(Long id) {
+        return violationRepository.findById(id).map(violationConverter::toDTO).orElse(null);
+    }
 
     @Override
     public List<ViolationDTO> getAllViolations() {

@@ -7,6 +7,10 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
+  security:
+    user:
+      name: ${SECURITY_USER_NAME:user}
+      password: ${SECURITY_USER_PASSWORD:password}
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
