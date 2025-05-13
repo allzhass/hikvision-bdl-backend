@@ -17,6 +17,7 @@ public class SentViolationsConverter {
             sentViolations.getCameraViolation().getViolation().getCode(),
             sentViolations.getRequest(),
             sentViolations.getResponse(),
+            sentViolations.getIsError(),
             sentViolations.getCreatedAt()
         );
     }

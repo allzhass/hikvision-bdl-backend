@@ -5,6 +5,7 @@ import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.repository.SentViolationsRepository;
 import kz.bdl.service.SentViolationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,6 +30,30 @@ public class SentViolationsServiceImpl implements SentViolationsService {
                 .stream()
                 .map(sentViolationsConverter::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public Page<SentViolationsDTO> getPaginatedSentViolations(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return sentViolationsRepository.findAllWithPagination(pageable)
+                .map(sentViolationsConverter::toDTO);
+    }
+
+    @Override
+    @Transactional
+    public Page<SentViolationsDTO> getPaginatedSentViolationsByCameraName(String cameraName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return sentViolationsRepository.findByCameraNameWithPagination(cameraName, pageable)
+                .map(sentViolationsConverter::toDTO);
+    }
+
+    @Override
+    @Transactional
+    public Page<SentViolationsDTO> getPaginatedSentViolationsByCameraIp(String cameraIp, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return sentViolationsRepository.findByCameraIpWithPagination(cameraIp, pageable)
+                .map(sentViolationsConverter::toDTO);
     }
 
     @Override

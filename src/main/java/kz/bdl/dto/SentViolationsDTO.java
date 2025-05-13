@@ -19,5 +19,6 @@ public class SentViolationsDTO {
     private String violationCode;
     private String request;
     private String response;
+    private Boolean isError;
     private LocalDateTime createdAt;
 } 

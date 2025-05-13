@@ -1,14 +1,16 @@
 package kz.bdl.service;
 
 import kz.bdl.dto.SentViolationsDTO;
-import kz.bdl.dto.CameraDTO;
-import kz.bdl.dto.APKDTO;
-import kz.bdl.dto.ViolationDTO;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface SentViolationsService {
     List<SentViolationsDTO> getAllSentViolations();
-    List<SentViolationsDTO> getSentViolationsByCameraId(Long cameraId);
+    Page<SentViolationsDTO> getPaginatedSentViolations(int page, int size);
     List<SentViolationsDTO> getSentViolationsByCameraName(String cameraName);
+    List<SentViolationsDTO> getSentViolationsByCameraId(Long cameraId);
     List<SentViolationsDTO> getSentViolationsByCameraIp(String cameraIp);
+    Page<SentViolationsDTO> getPaginatedSentViolationsByCameraName(String cameraName, int page, int size);
+    Page<SentViolationsDTO> getPaginatedSentViolationsByCameraIp(String cameraIp, int page, int size);
 } 

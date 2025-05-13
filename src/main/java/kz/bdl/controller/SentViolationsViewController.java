@@ -3,6 +3,7 @@ package kz.bdl.controller;
 import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.service.SentViolationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,30 +29,44 @@ public class SentViolationsViewController {
 
     @GetMapping("/camera/search")
     public String getSentViolationsByCameraId(
-            @RequestParam(value = "id", required = false) Long cameraId,
             @RequestParam(value = "name", required = false) String cameraName,
             @RequestParam(value = "ip", required = false) String cameraIp,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
 
-        List<SentViolationsDTO> violations;
-        if (cameraId != null) {
-            System.out.println("ID: " + cameraId);
-            violations = sentViolationsService.getSentViolationsByCameraId(cameraId);
-            model.addAttribute("violations", violations);
-            model.addAttribute("title", "Sent Violations by Camera");
-
-        } else if (cameraIp != null && !cameraIp.isEmpty()) {
-            System.out.println("IP: " + cameraIp);
-            violations = sentViolationsService.getSentViolationsByCameraIp(cameraIp);
-            model.addAttribute("violations", violations);
+        if (cameraIp != null && !cameraIp.isEmpty()) {
+            Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolationsByCameraIp(cameraIp, page, size);
+            model.addAttribute("violations", violationsPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", violationsPage.getTotalPages());
             model.addAttribute("title", "Sent Violations by Camera IP");
-
+            model.addAttribute("cameraIp", cameraIp);
         } else if (cameraName != null && !cameraName.isEmpty()) {
-            System.out.println("NAME: " + cameraName);
-            violations = sentViolationsService.getSentViolationsByCameraName(cameraName);
-            model.addAttribute("violations", violations);
+            Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolationsByCameraName(cameraName, page, size);
+            model.addAttribute("violations", violationsPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", violationsPage.getTotalPages());
             model.addAttribute("title", "Sent Violations by Camera Name");
+            model.addAttribute("cameraName", cameraName);
+        } else {
+            return "redirect:/sent-violations-view/paginated";
         }
-        return "sent-violations/list";
+        return "sent-violations/paginated-list";
     }
-} 
+
+    @GetMapping("/paginated")
+    public String getPaginatedList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolations(page, size);
+        
+        model.addAttribute("violations", violationsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", violationsPage.getTotalPages());
+        model.addAttribute("title", "Sent Violations (Paginated)");
+        
+        return "sent-violations/paginated-list";
+    }
+}

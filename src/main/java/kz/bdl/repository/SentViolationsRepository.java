@@ -22,4 +22,13 @@ public interface SentViolationsRepository extends JpaRepository<SentViolations, 
 
     @Query("SELECT s FROM SentViolations s WHERE s.cameraViolation.camera.ip = :cameraIp")
     List<SentViolations> findByCameraViolation_Camera_Ip(@Param("cameraIp") String cameraIp);
+
+    @Query("SELECT s FROM SentViolations s ORDER BY s.createdAt DESC")
+    Page<SentViolations> findAllWithPagination(Pageable pageable);
+
+    @Query("SELECT s FROM SentViolations s WHERE s.cameraViolation.camera.name = :cameraName ORDER BY s.createdAt DESC")
+    Page<SentViolations> findByCameraNameWithPagination(@Param("cameraName") String cameraName, Pageable pageable);
+
+    @Query("SELECT s FROM SentViolations s WHERE s.cameraViolation.camera.ip = :cameraIp ORDER BY s.createdAt DESC")
+    Page<SentViolations> findByCameraIpWithPagination(@Param("cameraIp") String cameraIp, Pageable pageable);
 } 
