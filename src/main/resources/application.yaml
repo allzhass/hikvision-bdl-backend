@@ -16,6 +16,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update  # update | create | validate | none
+      jdbc:
+        lob:
+          non_contextual_creation: false
     show-sql: true
 
 logging:

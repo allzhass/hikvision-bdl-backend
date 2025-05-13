@@ -10,35 +10,15 @@
         
         <div class="row mb-4">
             <div class="col-md-4">
-                <form th:action="@{/sent-violations-view/camera/{id}(id=${null})}" method="get" class="card">
+                <form th:action="@{/sent-violations-view/camera/search}" method="get" class="card">
                     <div class="card-body">
                         <h5 class="card-title">Filter by Camera</h5>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="id" placeholder="Enter Camera ID" required>
+                            <input type="number" class="form-control" name="id" placeholder="Enter Camera ID">
+                            <input type="text" class="form-control" name="name" placeholder="Enter Camera Name">
+                            <input type="text" class="form-control" name="ip" placeholder="Enter Camera IP">
                         </div>
-                        <button type="submit" class="btn btn-primary">View Camera Violations</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-4">
-                <form th:action="@{/sent-violations-view/apk/{id}(id=${null})}" method="get" class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Filter by APK</h5>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="id" placeholder="Enter APK ID" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">View APK Violations</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-4">
-                <form th:action="@{/sent-violations-view/violation/{id}(id=${null})}" method="get" class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Filter by Violation Type</h5>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="id" placeholder="Enter Violation ID" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">View Violation Type</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
             </div>

@@ -7,8 +7,8 @@ import kz.bdl.dto.ViolationDTO;
 import java.util.List;
 
 public interface SentViolationsService {
-    List<SentViolationsDTO> getSentViolationsByCameraId(Long cameraId);
-    List<SentViolationsDTO> getSentViolationsByAPKId(Long apkId);
-    List<SentViolationsDTO> getSentViolationsByViolationId(Long violationId);
     List<SentViolationsDTO> getAllSentViolations();
+    List<SentViolationsDTO> getSentViolationsByCameraId(Long cameraId);
+    List<SentViolationsDTO> getSentViolationsByCameraName(String cameraName);
+    List<SentViolationsDTO> getSentViolationsByCameraIp(String cameraIp);
 } 

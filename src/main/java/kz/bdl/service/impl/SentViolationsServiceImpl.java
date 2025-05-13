@@ -5,7 +5,11 @@ import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.repository.SentViolationsRepository;
 import kz.bdl.service.SentViolationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +22,26 @@ public class SentViolationsServiceImpl implements SentViolationsService {
     private SentViolationsConverter sentViolationsConverter;
 
     @Override
+    @Transactional
+    public List<SentViolationsDTO> getAllSentViolations() {
+        Pageable pageable = PageRequest.of(0, 50, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return sentViolationsRepository.findAllByOrderByCreatedAtDesc(pageable)
+                .stream()
+                .map(sentViolationsConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<SentViolationsDTO> getSentViolationsByCameraName(String cameraName) {
+        return sentViolationsRepository.findByCameraViolation_Camera_Name(cameraName)
+                .stream()
+                .map(sentViolationsConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
     public List<SentViolationsDTO> getSentViolationsByCameraId(Long cameraId) {
         return sentViolationsRepository.findByCameraViolation_Camera_Id(cameraId)
                 .stream()
@@ -26,24 +50,9 @@ public class SentViolationsServiceImpl implements SentViolationsService {
     }
 
     @Override
-    public List<SentViolationsDTO> getSentViolationsByAPKId(Long apkId) {
-        return sentViolationsRepository.findByCameraViolation_Camera_Apk_Id(apkId)
-                .stream()
-                .map(sentViolationsConverter::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SentViolationsDTO> getSentViolationsByViolationId(Long violationId) {
-        return sentViolationsRepository.findByCameraViolation_Violation_Id(violationId)
-                .stream()
-                .map(sentViolationsConverter::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SentViolationsDTO> getAllSentViolations() {
-        return sentViolationsRepository.findAll()
+    @Transactional
+    public List<SentViolationsDTO> getSentViolationsByCameraIp(String cameraIp) {
+        return sentViolationsRepository.findByCameraViolation_Camera_Ip(cameraIp)
                 .stream()
                 .map(sentViolationsConverter::toDTO)
                 .collect(Collectors.toList());

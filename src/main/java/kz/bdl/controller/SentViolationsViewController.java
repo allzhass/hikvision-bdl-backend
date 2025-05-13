@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,27 +26,32 @@ public class SentViolationsViewController {
         return "sent-violations/list";
     }
 
-    @GetMapping("/camera/{cameraId}")
-    public String getSentViolationsByCameraId(@PathVariable Long cameraId, Model model) {
-        List<SentViolationsDTO> violations = sentViolationsService.getSentViolationsByCameraId(cameraId);
-        model.addAttribute("violations", violations);
-        model.addAttribute("title", "Sent Violations by Camera");
-        return "sent-violations/list";
-    }
+    @GetMapping("/camera/search")
+    public String getSentViolationsByCameraId(
+            @RequestParam(value = "id", required = false) Long cameraId,
+            @RequestParam(value = "name", required = false) String cameraName,
+            @RequestParam(value = "ip", required = false) String cameraIp,
+            Model model) {
 
-    @GetMapping("/apk/{apkId}")
-    public String getSentViolationsByAPKId(@PathVariable Long apkId, Model model) {
-        List<SentViolationsDTO> violations = sentViolationsService.getSentViolationsByAPKId(apkId);
-        model.addAttribute("violations", violations);
-        model.addAttribute("title", "Sent Violations by APK");
-        return "sent-violations/list";
-    }
+        List<SentViolationsDTO> violations;
+        if (cameraId != null) {
+            System.out.println("ID: " + cameraId);
+            violations = sentViolationsService.getSentViolationsByCameraId(cameraId);
+            model.addAttribute("violations", violations);
+            model.addAttribute("title", "Sent Violations by Camera");
 
-    @GetMapping("/violation/{violationId}")
-    public String getSentViolationsByViolationId(@PathVariable Long violationId, Model model) {
-        List<SentViolationsDTO> violations = sentViolationsService.getSentViolationsByViolationId(violationId);
-        model.addAttribute("violations", violations);
-        model.addAttribute("title", "Sent Violations by Violation Type");
+        } else if (cameraIp != null && !cameraIp.isEmpty()) {
+            System.out.println("IP: " + cameraIp);
+            violations = sentViolationsService.getSentViolationsByCameraIp(cameraIp);
+            model.addAttribute("violations", violations);
+            model.addAttribute("title", "Sent Violations by Camera IP");
+
+        } else if (cameraName != null && !cameraName.isEmpty()) {
+            System.out.println("NAME: " + cameraName);
+            violations = sentViolationsService.getSentViolationsByCameraName(cameraName);
+            model.addAttribute("violations", violations);
+            model.addAttribute("title", "Sent Violations by Camera Name");
+        }
         return "sent-violations/list";
     }
 } 
