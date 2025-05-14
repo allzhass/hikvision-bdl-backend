@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -68,5 +69,11 @@ public class SentViolationsViewController {
         model.addAttribute("title", "Sent Violations (Paginated)");
         
         return "sent-violations/paginated-list";
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public SentViolationsDTO getSentViolationById(@PathVariable Long id) {
+        return sentViolationsService.getSentViolationById(id);
     }
 }

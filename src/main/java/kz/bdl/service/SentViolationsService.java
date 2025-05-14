@@ -13,4 +13,5 @@ public interface SentViolationsService {
     List<SentViolationsDTO> getSentViolationsByCameraIp(String cameraIp);
     Page<SentViolationsDTO> getPaginatedSentViolationsByCameraName(String cameraName, int page, int size);
     Page<SentViolationsDTO> getPaginatedSentViolationsByCameraIp(String cameraIp, int page, int size);
+    SentViolationsDTO getSentViolationById(Long id);
 } 

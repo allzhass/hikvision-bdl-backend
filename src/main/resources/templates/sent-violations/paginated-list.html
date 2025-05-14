@@ -44,16 +44,16 @@
                         <td th:text="${violation.violationCode}"></td>
                         <td>
                             <button class="btn btn-sm btn-info"
-                                    th:attr="data-request=${violation.request}"
-                                    onclick="showDetails(this.getAttribute('data-request'))">
+                                    th:attr="data-id=${violation.id}"
+                                    onclick="showRequestDetails(this.getAttribute('data-id'))">
                                 View Request
                             </button>
                         </td>
                         <td>
                             <button class="btn btn-sm"
                                     th:classappend="${violation.isError} ? 'btn-danger' : 'btn-success'"
-                                    th:attr="data-response=${violation.response}"
-                                    onclick="showDetails(this.getAttribute('data-response'))">
+                                    th:attr="data-id=${violation.id}"
+                                    onclick="showResponseDetails(this.getAttribute('data-id'))">
                                 View Response
                             </button>
                         </td>
@@ -111,9 +111,24 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
         <script>
-            function showDetails(content) {
-                $('#detailsContent').text(content);
-                $('#detailsModal').modal('show');
+            function showRequestDetails(id) {
+                fetch('/sent-violations-view/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        $('#detailsContent').text(data.request);
+                        $('#detailsModal').modal('show');
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function showResponseDetails(id) {
+                fetch('/sent-violations-view/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        $('#detailsContent').text(data.response);
+                        $('#detailsModal').modal('show');
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         </script>
     </div>

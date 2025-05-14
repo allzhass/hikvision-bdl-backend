@@ -1,6 +1,7 @@
 package kz.bdl.service.impl;
 
 import kz.bdl.converter.SentViolationsConverter;
+import kz.bdl.dto.APKDTO;
 import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.repository.SentViolationsRepository;
 import kz.bdl.service.SentViolationsService;
@@ -54,6 +55,11 @@ public class SentViolationsServiceImpl implements SentViolationsService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         return sentViolationsRepository.findByCameraIpWithPagination(cameraIp, pageable)
                 .map(sentViolationsConverter::toDTO);
+    }
+
+    @Override
+    public SentViolationsDTO getSentViolationById(Long id) {
+        return sentViolationsRepository.findById(id).map(sentViolationsConverter::toDTO).orElse(null);
     }
 
     @Override
