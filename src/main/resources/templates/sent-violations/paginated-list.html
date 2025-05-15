@@ -28,6 +28,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Plate Number</th>
+                        <th>Message ID</th>
                         <th>Camera</th>
                         <th>APK</th>
                         <th>Violation</th>
@@ -39,6 +41,8 @@
                 <tbody>
                     <tr th:each="violation : ${violations}">
                         <td th:text="${violation.id}"></td>
+                        <td th:text="${violation.plateNumber}"></td>
+                        <td th:text="${violation.messageId}"></td>
                         <td th:text="${violation.cameraName}"></td>
                         <td th:text="${violation.apkName}"></td>
                         <td th:text="${violation.violationCode}"></td>
@@ -63,28 +67,63 @@
             </table>
         </div>
 
-        <!-- Pagination -->
+        <!-- Compact Pagination -->
         <nav th:if="${totalPages > 1}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                    <a class="page-link" 
-                       th:href="${cameraName != null || cameraIp != null} ? 
-                              @{/sent-violations-view/camera/search(page=${currentPage - 1}, name=${cameraName}, ip=${cameraIp})} : 
-                              @{/sent-violations-view/paginated(page=${currentPage - 1})}">Previous</a>
+                    <a class="page-link"
+                       th:href="${cameraName != null || cameraIp != null} ?
+                        @{/sent-violations-view/camera/search(page=${currentPage - 1}, name=${cameraName}, ip=${cameraIp})} :
+                        @{/sent-violations-view/paginated(page=${currentPage - 1})}">
+                        Previous
+                    </a>
                 </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+
+                <!-- First page -->
+                <li class="page-item" th:if="${currentPage > 2}">
+                    <a class="page-link"
+                       th:href="${cameraName != null || cameraIp != null} ?
+                        @{/sent-violations-view/camera/search(page=0, name=${cameraName}, ip=${cameraIp})} :
+                        @{/sent-violations-view/paginated(page=0)}">1</a>
+                </li>
+
+                <!-- Ellipsis before current -->
+                <li class="page-item disabled" th:if="${currentPage > 3}">
+                    <span class="page-link">...</span>
+                </li>
+
+                <!-- Pages around current -->
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence((currentPage > 1) ? currentPage - 1 : 0, (currentPage + 1 < totalPages) ? currentPage + 1 : totalPages - 1)}"
                     th:classappend="${currentPage == i} ? 'active'">
-                    <a class="page-link" 
-                       th:href="${cameraName != null || cameraIp != null} ? 
-                              @{/sent-violations-view/camera/search(page=${i}, name=${cameraName}, ip=${cameraIp})} : 
-                              @{/sent-violations-view/paginated(page=${i})}" 
+                    <a class="page-link"
+                       th:href="${cameraName != null || cameraIp != null} ?
+                        @{/sent-violations-view/camera/search(page=${i}, name=${cameraName}, ip=${cameraIp})} :
+                        @{/sent-violations-view/paginated(page=${i})}"
                        th:text="${i + 1}"></a>
                 </li>
+
+                <!-- Ellipsis after current -->
+                <li class="page-item disabled" th:if="${currentPage < totalPages - 4}">
+                    <span class="page-link">...</span>
+                </li>
+
+                <!-- Last page -->
+                <li class="page-item" th:if="${currentPage < totalPages - 3}">
+                    <a class="page-link"
+                       th:href="${cameraName != null || cameraIp != null} ?
+                        @{/sent-violations-view/camera/search(page=${totalPages - 1}, name=${cameraName}, ip=${cameraIp})} :
+                        @{/sent-violations-view/paginated(page=${totalPages - 1})}"
+                       th:text="${totalPages}"></a>
+                </li>
+
                 <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                    <a class="page-link" 
-                       th:href="${cameraName != null || cameraIp != null} ? 
-                              @{/sent-violations-view/camera/search(page=${currentPage + 1}, name=${cameraName}, ip=${cameraIp})} : 
-                              @{/sent-violations-view/paginated(page=${currentPage + 1})}">Next</a>
+                    <a class="page-link"
+                       th:href="${cameraName != null || cameraIp != null} ?
+                        @{/sent-violations-view/camera/search(page=${currentPage + 1}, name=${cameraName}, ip=${cameraIp})} :
+                        @{/sent-violations-view/paginated(page=${currentPage + 1})}">
+                        Next
+                    </a>
                 </li>
             </ul>
         </nav>

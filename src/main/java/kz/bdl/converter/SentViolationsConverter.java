@@ -18,7 +18,9 @@ public class SentViolationsConverter {
             sentViolations.getRequest(),
             sentViolations.getResponse(),
             sentViolations.getIsError(),
-            sentViolations.getCreatedAt()
+            sentViolations.getCreatedAt(),
+            sentViolations.getPlateNumber(),
+            sentViolations.getMessageId()
         );
     }
 } 

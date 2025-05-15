@@ -21,4 +21,6 @@ public class SentViolationsDTO {
     private String response;
     private Boolean isError;
     private LocalDateTime createdAt;
+    private String plateNumber;
+    private String messageId;
 } 
