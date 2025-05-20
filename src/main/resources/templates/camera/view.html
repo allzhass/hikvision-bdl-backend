@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Camera Details</title>
+    <title>Просмотр камеры</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -10,10 +10,10 @@
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Camera Details</h2>
+            <h2>Просмотр камеры</h2>
             <div>
-                <a th:href="@{/camera-view/edit/{id}(id=${camera.id})}" class="btn btn-warning">Edit</a>
-                <a href="/camera-view" class="btn btn-secondary">Back to List</a>
+                <a th:href="@{/camera-view/edit/{id}(id=${camera.id})}" class="btn btn-warning">Изменить</a>
+                <a href="/camera-view" class="btn btn-secondary">Вернуться в список</a>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                     <div class="col-md-9" th:text="${camera.id}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">APK ID:</div>
+                    <div class="col-md-3 fw-bold">ID АПК:</div>
                     <div class="col-md-9">
                         <a th:href="@{/apk-view/{id}(id=${camera.apkId})}" 
                            class="btn btn-outline-primary btn-sm" 
@@ -33,31 +33,31 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">Name:</div>
+                    <div class="col-md-3 fw-bold">Название:</div>
                     <div class="col-md-9" th:text="${camera.name}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">IP Address:</div>
+                    <div class="col-md-3 fw-bold">IP адрес:</div>
                     <div class="col-md-9" th:text="${camera.ip}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">Code:</div>
+                    <div class="col-md-3 fw-bold">Код:</div>
                     <div class="col-md-9" th:text="${camera.code}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">Direction:</div>
+                    <div class="col-md-3 fw-bold">Направление:</div>
                     <div class="col-md-9" th:text="${camera.direction}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">Brand:</div>
+                    <div class="col-md-3 fw-bold">Брэнд:</div>
                     <div class="col-md-9" th:text="${camera.brand}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">Collection Days:</div>
+                    <div class="col-md-3 fw-bold">Хранение (дней):</div>
                     <div class="col-md-9" th:text="${camera.collectionDays}"></div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3 fw-bold">APK ID:</div>
+                    <div class="col-md-3 fw-bold">ID АПК:</div>
                     <div class="col-md-9" th:text="${camera.apkId}"></div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
         <div class="card mt-4">
             <div class="card-header">
-                <h3 class="mb-0">Violations</h3>
+                <h3 class="mb-0">Нарушения</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -73,10 +73,11 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Violation Code</th>
-                                <th>Oper Code</th>
-                                <th>Hik Code</th>
-                                <th>Sent to ERAP</th>
+                                <th>Код нарушения</th>
+                                <th>Код ОПЕР</th>
+                                <th>Код Hikvision</th>
+                                <th>Отправить в ЕРАП</th>
+                                <th>Продуктив</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,12 +91,20 @@
                                             th:data-status="${violation.isSendErap}"
                                             class="btn btn-sm toggle-erap"
                                             th:classappend="${violation.isSendErap ? 'btn-success' : 'btn-secondary'}">
-                                        <span th:text="${violation.isSendErap ? 'Yes' : 'No'}"></span>
+                                        <span th:text="${violation.isSendErap ? 'Да' : 'Нет'}"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button th:data-id="${violation.id}"
+                                            th:data-status="${violation.isProd}"
+                                            class="btn btn-sm toggle-prod"
+                                            th:classappend="${violation.isProd ? 'btn-success' : 'btn-secondary'}">
+                                        <span th:text="${violation.isProd ? 'Да' : 'Нет'}"></span>
                                     </button>
                                 </td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(violations)}">
-                                <td colspan="5" class="text-center">No violations found</td>
+                                <td colspan="5" class="text-center">Нарушения не найдены</td>
                             </tr>
                         </tbody>
                     </table>
@@ -125,16 +134,51 @@
                         .then(result => {
                             if (result.includes('successfully')) {
                                 this.dataset.status = newStatus;
-                                this.textContent = newStatus ? 'Yes' : 'No';
+                                this.textContent = newStatus ? 'Да' : 'Нет';
                                 this.classList.remove('btn-success', 'btn-secondary');
                                 this.classList.add(newStatus ? 'btn-success' : 'btn-secondary');
                             } else {
-                                alert('Failed to update status');
+                                alert('Ошибка обновления статуса');
                             }
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            alert('Failed to update status');
+                            alert('Ошибка обновления статуса');
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.toggle-prod').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        const currentStatus = this.dataset.status === 'true';
+                        const newStatus = !currentStatus;
+
+                        // Get CSRF token from meta tag
+                        const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+                        fetch(`/camera-view/violation/${id}/toggle-prod?isProd=${newStatus}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                [header]: token
+                            }
+                        })
+                        .then(response => response.text())
+                        .then(result => {
+                            if (result.includes('successfully')) {
+                                this.dataset.status = newStatus;
+                                this.textContent = newStatus ? 'Да' : 'Нет';
+                                this.classList.remove('btn-success', 'btn-secondary');
+                                this.classList.add(newStatus ? 'btn-success' : 'btn-secondary');
+                            } else {
+                                alert('Ошибка обновления статуса');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Ошибка обновления статуса');
                         });
                     });
                 });

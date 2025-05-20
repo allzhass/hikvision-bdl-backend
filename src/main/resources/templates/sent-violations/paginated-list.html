@@ -12,12 +12,12 @@
             <div class="col-md-4">
                 <form th:action="@{/sent-violations-view/camera/search}" method="get" class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Filter by Camera</h5>
+                        <h5 class="card-title">Фильтр по камере</h5>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" th:value="${cameraName}" placeholder="Enter Camera Name">
-                            <input type="text" class="form-control" name="ip" th:value="${cameraIp}" placeholder="Enter Camera IP">
+                            <input type="text" class="form-control" name="name" th:value="${cameraName}" placeholder="Код камеры">
+                            <input type="text" class="form-control" name="ip" th:value="${cameraIp}" placeholder="IP камеры">
                         </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">Поиск</button>
                     </div>
                 </form>
             </div>
@@ -28,14 +28,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Plate Number</th>
-                        <th>Message ID</th>
-                        <th>Camera</th>
-                        <th>APK</th>
-                        <th>Violation</th>
-                        <th>Request</th>
-                        <th>Response</th>
-                        <th>Created At</th>
+                        <th>ГРНЗ</th>
+                        <th>ID сообщ.</th>
+                        <th>Камера</th>
+                        <th>АПК</th>
+                        <th>Нарушение</th>
+                        <th>Запрос</th>
+                        <th>Ответ</th>
+                        <th>Создано</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@
                             <button class="btn btn-sm btn-info"
                                     th:attr="data-id=${violation.id}"
                                     onclick="showRequestDetails(this.getAttribute('data-id'))">
-                                View Request
+                                Открыть запрос
                             </button>
                         </td>
                         <td>
@@ -58,7 +58,7 @@
                                     th:classappend="${violation.isError} ? 'btn-danger' : 'btn-success'"
                                     th:attr="data-id=${violation.id}"
                                     onclick="showResponseDetails(this.getAttribute('data-id'))">
-                                View Response
+                                Открыть ответ
                             </button>
                         </td>
                         <td th:text="${#temporals.format(violation.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>

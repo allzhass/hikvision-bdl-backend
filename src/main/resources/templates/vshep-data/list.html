@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Vshep Data List</title>
+    <title>Список ВШЭП</title>
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Vshep Data</h1>
-            <a href="/vshep-data-view/add" class="btn btn-primary">Add Vshep Data</a>
+            <h1>Список ВШЭП</h1>
+            <a href="/vshep-data-view/add" class="btn btn-primary">Добавить новое подключение</a>
         </div>
 
         <div class="table-responsive">
@@ -16,11 +16,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Client ID</th>
-                        <th>Service ID</th>
-                        <th>Sender ID</th>
+                        <th>ID клиента</th>
+                        <th>ID сервиса</th>
+                        <th>ID отправителя</th>
                         <th>URL</th>
-                        <th>Actions</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,10 +32,10 @@
                         <td th:text="${vshepData.URL}"></td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a th:href="@{/vshep-data-view/{id}(id=${vshepData.id})}" class="btn btn-info btn-sm">View</a>
-                                <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success btn-sm">Download Cert</a>
-                                <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-secondary btn-sm">Regions</a>
+                                <a th:href="@{/vshep-data-view/{id}(id=${vshepData.id})}" class="btn btn-info btn-sm">Просмотр</a>
+                                <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning btn-sm">Изменить</a>
+                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success btn-sm">Скачать серт</a>
+                                <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-secondary btn-sm">Регионы</a>
                             </div>
                         </td>
                     </tr>

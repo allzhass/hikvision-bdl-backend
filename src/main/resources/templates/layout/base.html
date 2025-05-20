@@ -9,36 +9,36 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">BDL</a>
+            <a class="navbar-brand" href="/sent-violations-view/paginated">BDL</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/vshep-data-view">Vshep Data</a>
+                        <a class="nav-link" href="/vshep-data-view">ВШЭП</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/region-view">Regions</a>
+                        <a class="nav-link" href="/region-view">Регионы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/location-view">Locations</a>
+                        <a class="nav-link" href="/location-view">Адреса</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/apk-view">APKs</a>
+                        <a class="nav-link" href="/apk-view">АПК</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/camera-view">Cameras</a>
+                        <a class="nav-link" href="/camera-view">Камеры</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/violation-view">Violations</a>
+                        <a class="nav-link" href="/violation-view">Нарушения</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sent-violations-view/paginated">Sent Violations</a>
+                        <a class="nav-link" href="/sent-violations-view/paginated">Статусы нарушений</a>
                     </li>
                 </ul>
                 <form th:action="@{/logout}" method="post" class="d-flex">
-                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                    <button class="btn btn-outline-light" type="submit">Выход</button>
                 </form>
             </div>
         </div>

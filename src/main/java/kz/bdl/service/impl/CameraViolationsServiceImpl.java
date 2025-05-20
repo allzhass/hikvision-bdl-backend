@@ -50,4 +50,16 @@ public class CameraViolationsServiceImpl implements CameraViolationsService {
         cameraViolationRepository.save(cameraViolation);
         return ResponseEntity.ok("Status updated successfully");
     }
+
+    @Override
+    public ResponseEntity<String> updateIsProd(Long id, Boolean isProd) {
+        CameraViolation cameraViolation = cameraViolationRepository.findById(id)
+                .orElse(null);
+        if (cameraViolation == null) {
+            return ResponseEntity.badRequest().body("Camera violation not found");
+        }
+        cameraViolation.setIsProd(isProd);
+        cameraViolationRepository.save(cameraViolation);
+        return ResponseEntity.ok("Status updated successfully");
+    }
 }

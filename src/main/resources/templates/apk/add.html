@@ -2,40 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Add New APK</title>
+    <title>Добавить АПК</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Add New APK</h2>
-            <a href="/apk-view" class="btn btn-secondary">Back to List</a>
+            <h2>Добавить новый АПК</h2>
+            <a href="/apk-view" class="btn btn-secondary">Вернуться в список</a>
         </div>
 
         <div class="card">
             <div class="card-body">
                 <form th:action="@{/apk-view/add}" th:object="${apk}" method="post">
                     <div class="mb-3">
-                        <label for="deviceNumber" class="form-label">Device Number</label>
+                        <label for="deviceNumber" class="form-label">Номер устройства</label>
                         <input type="text" class="form-control" id="deviceNumber" th:field="*{deviceNumber}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="certNumber" class="form-label">Certificate Number</label>
+                        <label for="certNumber" class="form-label">Номер сертификата</label>
                         <input type="text" class="form-control" id="certNumber" th:field="*{certNumber}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="certIssue" class="form-label">Certificate Issue Date</label>
+                        <label for="certIssue" class="form-label">Дата выпуска сертификата</label>
                         <input type="datetime-local" class="form-control" id="certIssue" th:field="*{certIssue}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="certExpiry" class="form-label">Certificate Expiry Date</label>
+                        <label for="certExpiry" class="form-label">Дата истечения сертификата</label>
                         <input type="datetime-local" class="form-control" id="certExpiry" th:field="*{certExpiry}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="locationId" class="form-label">Location ID</label>
+                        <label for="locationId" class="form-label">ID адреса</label>
                         <input type="number" class="form-control" id="locationId" th:field="*{locationId}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add APK</button>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
             </div>
         </div>

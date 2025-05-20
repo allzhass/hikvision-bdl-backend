@@ -9,4 +9,5 @@ public interface CameraViolationsService {
     List<CameraViolationDTO> getCameraViolationsByAPKId(Long apkId);
     List<CameraViolationDTO> getCameraViolationsByCameraId(Long cameraId);
     ResponseEntity<String> updateIsSendErap(Long id, Boolean isSendErap);
+    ResponseEntity<String> updateIsProd(Long id, Boolean isProd);
 }

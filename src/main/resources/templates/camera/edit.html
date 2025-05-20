@@ -2,48 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Edit Camera</title>
+    <title>Изменение камеры</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Edit Camera</h2>
-            <a href="/camera-view" class="btn btn-secondary">Back to List</a>
+            <h2>Изменение камеры</h2>
+            <a href="/camera-view" class="btn btn-secondary">Вернуться в список</a>
         </div>
 
         <div class="card">
             <div class="card-body">
                 <form th:action="@{/camera-view/edit/{id}(id=${camera.id})}" th:object="${camera}" method="post">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Название</label>
                         <input type="text" class="form-control" id="name" th:field="*{name}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ip" class="form-label">IP Address</label>
+                        <label for="ip" class="form-label">IP адрес</label>
                         <input type="text" class="form-control" id="ip" th:field="*{ip}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="code" class="form-label">Code</label>
+                        <label for="code" class="form-label">Код</label>
                         <input type="text" class="form-control" id="code" th:field="*{code}">
                     </div>
                     <div class="mb-3">
-                        <label for="direction" class="form-label">Direction</label>
+                        <label for="direction" class="form-label">Направление</label>
                         <input type="text" class="form-control" id="direction" th:field="*{direction}">
                     </div>
                     <div class="mb-3">
-                        <label for="brand" class="form-label">Brand</label>
+                        <label for="brand" class="form-label">Брэнд</label>
                         <input type="text" class="form-control" id="brand" th:field="*{brand}">
                     </div>
                     <div class="mb-3">
-                        <label for="collectionDays" class="form-label">Collection Days</label>
+                        <label for="collectionDays" class="form-label">Хранение (дни)</label>
                         <input type="number" class="form-control" id="collectionDays" th:field="*{collectionDays}">
                     </div>
                     <div class="mb-3">
-                        <label for="apkId" class="form-label">APK ID</label>
+                        <label for="apkId" class="form-label">ID АПК</label>
                         <input type="number" class="form-control" id="apkId" th:field="*{apkId}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Camera</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
         </div>

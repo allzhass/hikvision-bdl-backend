@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/base}">
 <head>
-    <title>Regions</title>
+    <title>Регионы</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Regions</h1>
+            <h1>Регионы</h1>
             <div>
-                <a href="/region-view/add" class="btn btn-primary">Add Region</a>
-                <a href="/region-view/has-location" class="btn btn-info">Show Regions with Locations</a>
+                <a href="/region-view/add" class="btn btn-primary">Добавить регион</a>
+                <a href="/region-view/has-location" class="btn btn-info">Регионы с адресами</a>
             </div>
         </div>
 
@@ -19,12 +19,12 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Code</th>
-                        <th>Name (RU)</th>
-                        <th>Name (KZ)</th>
-                        <th>Name (EN)</th>
-                        <th>Vshep Data ID</th>
-                        <th>Actions</th>
+                        <th>Код</th>
+                        <th>Название (RU)</th>
+                        <th>Название (KZ)</th>
+                        <th>Название (EN)</th>
+                        <th>ВШЭП</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,9 +42,9 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a th:href="@{/region-view/{id}(id=${region.id})}" class="btn btn-info btn-sm">View</a>
-                                <a th:href="@{/region-view/edit/{id}(id=${region.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/location-view/region/{id}(id=${region.id})}" class="btn btn-success btn-sm">View Locations</a>
+                                <a th:href="@{/region-view/{id}(id=${region.id})}" class="btn btn-info btn-sm">Просмотр</a>
+                                <a th:href="@{/region-view/edit/{id}(id=${region.id})}" class="btn btn-warning btn-sm">Изменение</a>
+                                <a th:href="@{/location-view/region/{id}(id=${region.id})}" class="btn btn-success btn-sm">Адреса</a>
                             </div>
                         </td>
                     </tr>

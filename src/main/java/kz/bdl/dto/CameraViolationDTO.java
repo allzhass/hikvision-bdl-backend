@@ -14,4 +14,5 @@ public class CameraViolationDTO {
     private Camera camera;
     private Violation violation;
     private Boolean isSendErap;
+    private Boolean isProd;
 }

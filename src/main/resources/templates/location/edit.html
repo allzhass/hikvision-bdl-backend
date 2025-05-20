@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Edit Location</title>
+    <title>Изменить адрес</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,33 +11,33 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="mb-0">Edit Location</h2>
+                        <h2 class="mb-0">Изменить адрес</h2>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/location-view/edit/{id}(id=${location.id})}" th:object="${location}" method="post">
                             <div class="mb-3">
-                                <label for="regionId" class="form-label">Region ID</label>
+                                <label for="regionId" class="form-label">ID регион</label>
                                 <input type="number" class="form-control" id="regionId" th:field="*{regionId}" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="nameRu" class="form-label">Name (Russian)</label>
+                                <label for="nameRu" class="form-label">Название (Russian)</label>
                                 <input type="text" class="form-control" id="nameRu" th:field="*{nameRu}">
                             </div>
                             
                             <div class="mb-3">
-                                <label for="nameKz" class="form-label">Name (Kazakh)</label>
+                                <label for="nameKz" class="form-label">Название (Kazakh)</label>
                                 <input type="text" class="form-control" id="nameKz" th:field="*{nameKz}">
                             </div>
                             
                             <div class="mb-3">
-                                <label for="nameEn" class="form-label">Name (English)</label>
+                                <label for="nameEn" class="form-label">Название (English)</label>
                                 <input type="text" class="form-control" id="nameEn" th:field="*{nameEn}">
                             </div>
                             
                             <div class="d-flex justify-content-between">
-                                <a href="/location-view" class="btn btn-secondary">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="/location-view" class="btn btn-secondary">Отмена</a>
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
                             </div>
                         </form>
                     </div>

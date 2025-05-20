@@ -66,4 +66,10 @@ public class CameraViewController {
     public ResponseEntity<String> toggleIsSendErap(@PathVariable Long id, @RequestParam Boolean isSendErap) {
         return cameraViolationsService.updateIsSendErap(id, isSendErap);
     }
+
+    @PostMapping("/violation/{id}/toggle-prod")
+    @ResponseBody
+    public ResponseEntity<String> toggleIsProd(@PathVariable Long id, @RequestParam Boolean isProd) {
+        return cameraViolationsService.updateIsProd(id, isProd);
+    }
 } 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Add Vshep Data</title>
+    <title>Добавить ВШЭП</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,32 +11,32 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="mb-0">Add New Vshep Data</h2>
+                        <h2 class="mb-0">Добавить новое подключение</h2>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/vshep-data-view/add}" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label for="clientId" class="form-label">Client ID</label>
+                                <label for="clientId" class="form-label">ID клиента</label>
                                 <input type="text" class="form-control" id="clientId" name="clientId" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="serviceId" class="form-label">Service ID</label>
+                                <label for="serviceId" class="form-label">ID сервиса</label>
                                 <input type="text" class="form-control" id="serviceId" name="serviceId" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="senderId" class="form-label">Sender ID</label>
+                                <label for="senderId" class="form-label">ID отправителя</label>
                                 <input type="text" class="form-control" id="senderId" name="senderId" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="senderPwd" class="form-label">Sender Password</label>
+                                <label for="senderPwd" class="form-label">Пароль отправителя</label>
                                 <input type="password" class="form-control" id="senderPwd" name="senderPwd" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="certpwd" class="form-label">Certificate Password</label>
+                                <label for="certpwd" class="form-label">Пароль сертификата</label>
                                 <input type="password" class="form-control" id="certpwd" name="certpwd" required>
                             </div>
                             
@@ -46,13 +46,13 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label for="cert" class="form-label">Certificate File (.p12)</label>
+                                <label for="cert" class="form-label">Файл сертификата (.p12)</label>
                                 <input type="file" class="form-control" id="cert" name="cert" accept=".p12" required>
                             </div>
                             
                             <div class="d-flex justify-content-between">
-                                <a href="/vshep-data-view" class="btn btn-secondary">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Add Vshep Data</button>
+                                <a href="/vshep-data-view" class="btn btn-secondary">Отмена</a>
+                                <button type="submit" class="btn btn-primary">Добавить</button>
                             </div>
                         </form>
                     </div>

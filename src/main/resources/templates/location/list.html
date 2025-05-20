@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Locations</title>
+    <title>Адреса</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Locations</h2>
-            <a href="/location-view/add" class="btn btn-primary">Add New Location</a>
+            <h2>Адреса</h2>
+            <a href="/location-view/add" class="btn btn-primary">Добавить новый адрес</a>
         </div>
 
         <div class="card">
@@ -19,11 +19,11 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Region ID</th>
-                                <th>Name (Russian)</th>
-                                <th>Name (Kazakh)</th>
-                                <th>Name (English)</th>
-                                <th>Actions</th>
+                                <th>Регион</th>
+                                <th>Название (Russian)</th>
+                                <th>Название (Kazakh)</th>
+                                <th>Название (English)</th>
+                                <th>Действия</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,14 +41,14 @@
                                 <td>
                                     <div class="btn-group">
                                         <a th:href="@{/apk-view/location/{id}(id=${location.id})}" 
-                                           class="btn btn-sm btn-info">View APKs</a>
+                                           class="btn btn-sm btn-info">АПК</a>
                                         <a th:href="@{/location-view/edit/{id}(id=${location.id})}" 
-                                           class="btn btn-sm btn-primary">Edit</a>
+                                           class="btn btn-sm btn-primary">Изменить</a>
                                         <form th:action="@{/location-view/delete/{id}(id=${location.id})}" 
                                               method="post" style="display: inline;">
                                             <button type="submit" class="btn btn-sm btn-danger" 
                                                     onclick="return confirm('Are you sure you want to delete this location?')">
-                                                Delete
+                                                Удалить
                                             </button>
                                         </form>
                                     </div>

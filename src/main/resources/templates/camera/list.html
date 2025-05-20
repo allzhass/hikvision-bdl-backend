@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Camera List</title>
+    <title>Список камер</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Camera List</h2>
-            <a href="/camera-view/add" class="btn btn-primary">Add New Camera</a>
+            <h2>Список камер</h2>
+            <a href="/camera-view/add" class="btn btn-primary">Добавить камеру</a>
         </div>
 
         <div class="table-responsive">
@@ -17,14 +17,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>APK ID</th>
-                        <th>Name</th>
-                        <th>IP Address</th>
-                        <th>Code</th>
-                        <th>Direction</th>
-                        <th>Brand</th>
-                        <th>Collection Days</th>
-                        <th>Actions</th>
+                        <th>АПК</th>
+                        <th>Название</th>
+                        <th>IP адрес</th>
+                        <th>Код</th>
+                        <th>Направление</th>
+                        <th>Брэнд</th>
+                        <th>Хранение (день)</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,8 +44,8 @@
                         <td th:text="${camera.collectionDays}"></td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a th:href="@{/camera-view/{id}(id=${camera.id})}" class="btn btn-info btn-sm">View</a>
-                                <a th:href="@{/camera-view/edit/{id}(id=${camera.id})}" class="btn btn-warning btn-sm">Edit</a>
+                                <a th:href="@{/camera-view/{id}(id=${camera.id})}" class="btn btn-info btn-sm">Просмотр</a>
+                                <a th:href="@{/camera-view/edit/{id}(id=${camera.id})}" class="btn btn-warning btn-sm">Изменение</a>
                             </div>
                         </td>
                     </tr>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>Vshep Data Details</title>
+    <title>Просмотр ВШЭП</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="mb-0">Vshep Data Details</h2>
+                        <h2 class="mb-0">Просмотр ВШЭП</h2>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -20,17 +20,17 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Client ID</label>
+                            <label class="form-label fw-bold">ID клиента</label>
                             <p th:text="${vshepData.clientId}" class="form-control-static"></p>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Service ID</label>
+                            <label class="form-label fw-bold">ID сервиса</label>
                             <p th:text="${vshepData.serviceId}" class="form-control-static"></p>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Sender ID</label>
+                            <label class="form-label fw-bold">ID отправителя</label>
                             <p th:text="${vshepData.senderId}" class="form-control-static"></p>
                         </div>
                         
@@ -40,20 +40,20 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Certificate Status</label>
-                            <p th:text="${vshepData.cert != null ? 'Certificate Present' : 'No Certificate'}" class="form-control-static"></p>
+                            <label class="form-label fw-bold">Статус сертификата</label>
+                            <p th:text="${vshepData.cert != null ? 'Текущий сертификат' : 'Сертификат отсутствует'}" class="form-control-static"></p>
                         </div>
 
                         <div class="mt-4">
-                            <h3>Associated Regions</h3>
-                            <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-primary">View Regions</a>
+                            <h3>Прикрепленные регионы</h3>
+                            <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-primary">Просмотр регионов</a>
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                            <a href="/vshep-data-view" class="btn btn-secondary">Back to List</a>
+                            <a href="/vshep-data-view" class="btn btn-secondary">Вернуться в список</a>
                             <div>
-                                <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning">Edit</a>
-                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success">Download Certificate</a>
+                                <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning">Изменить</a>
+                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success">Скачать сертификат</a>
                             </div>
                         </div>
                     </div>
