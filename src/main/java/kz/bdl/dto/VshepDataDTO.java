@@ -18,4 +18,5 @@ public class VshepDataDTO {
     private byte[] cert;
     private String certpwd;
     private String URL;
+    private String testUrl;
 }

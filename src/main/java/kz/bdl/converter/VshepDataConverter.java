@@ -15,7 +15,8 @@ public class VshepDataConverter {
                 vshepData.getSenderPwd(),
                 vshepData.getCert(),
                 vshepData.getCertpwd(),
-                vshepData.getURL());
+                vshepData.getURL(),
+                vshepData.getTestUrl());
     }
     public VshepData toEntity(VshepDataDTO dto) {
         return new VshepData(
@@ -26,6 +27,7 @@ public class VshepDataConverter {
                 dto.getSenderPwd(),
                 dto.getCert(),
                 dto.getCertpwd(),
-                dto.getURL());
+                dto.getURL(),
+                dto.getTestUrl());
     }
 }

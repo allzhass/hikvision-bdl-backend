@@ -48,6 +48,7 @@ public class VshepDataViewController {
                               @RequestParam String senderPwd,
                               @RequestParam String certpwd,
                               @RequestParam(value = "url", required = false, defaultValue = "") String url,
+                              @RequestParam(value = "testUrl", required = false, defaultValue = "") String testUrl,
                               @RequestParam(value = "cert") MultipartFile cert) {
         try {
             vshepDataService.addVshepData(VshepDataDTO.builder()
@@ -58,6 +59,7 @@ public class VshepDataViewController {
                     .cert(cert.getBytes())
                     .certpwd(certpwd)
                     .URL(url)
+                    .testUrl(testUrl)
                     .build());
             return "redirect:/vshep-data-view";
         } catch (IOException e) {
@@ -79,6 +81,7 @@ public class VshepDataViewController {
                                  @RequestParam(value = "senderPwd", required = false) String senderPwd,
                                  @RequestParam(value = "certpwd", required = false) String certpwd,
                                  @RequestParam(value = "url", required = false) String url,
+                                 @RequestParam(value = "testUrl", required = false) String testUrl,
                                  @RequestParam(value = "cert", required = false) MultipartFile cert) {
         VshepDataDTO vshepDataDTO = vshepDataService.getVshepDataById(id);
         if (vshepDataDTO == null) {
@@ -91,6 +94,7 @@ public class VshepDataViewController {
         if (senderPwd != null) vshepDataDTO.setSenderPwd(senderPwd);
         if (certpwd != null) vshepDataDTO.setCertpwd(certpwd);
         if (url != null) vshepDataDTO.setURL(url);
+        if (testUrl != null) vshepDataDTO.setTestUrl(testUrl);
 
         if (cert != null && !cert.isEmpty()) {
             try {
