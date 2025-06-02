@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Сертификаты</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Сертификаты</h2>
+            <a th:href="@{/certificates/new}" class="btn btn-primary">Добавить новый сертификат</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Владелец</th>
+                        <th>Выпуск</th>
+                        <th>Срок</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cert : ${certificates}">
+                        <td th:text="${cert.id}"></td>
+                        <td th:text="${cert.issuedBy}"></td>
+                        <td th:text="${cert.issuedAt}"></td>
+                        <td th:text="${cert.expiresAt}"></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/certificates/edit/{id}(id=${cert.id})}" class="btn btn-sm btn-warning">Изменить</a>
+                                <a th:href="@{/certificates/download/{id}(id=${cert.id})}" class="btn btn-sm btn-info">Скачать</a>
+                                <a th:href="@{/certificates/delete/{id}(id=${cert.id})}" 
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Вы уверены, что хотите удалить этот сертификат?')">Удалить</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

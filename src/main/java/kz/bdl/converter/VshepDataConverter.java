@@ -6,28 +6,39 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VshepDataConverter {
-    public VshepDataDTO toDTO(VshepData vshepData) {
-        return new VshepDataDTO(
-                vshepData.getId(),
-                vshepData.getClientId(),
-                vshepData.getServiceId(),
-                vshepData.getSenderId(),
-                vshepData.getSenderPwd(),
-                vshepData.getCert(),
-                vshepData.getCertpwd(),
-                vshepData.getURL(),
-                vshepData.getTestUrl());
+    
+    public VshepDataDTO toDTO(VshepData entity) {
+        if (entity == null) {
+            return null;
+        }
+        
+        return VshepDataDTO.builder()
+                .id(entity.getId())
+                .certId(entity.getCertId() != null ? entity.getCertId().getId() : null)
+                .certIssuedBy(entity.getCertId() != null ? entity.getCertId().getIssuedBy() : null)
+                .clientId(entity.getClientId())
+                .serviceId(entity.getServiceId())
+                .senderId(entity.getSenderId())
+                .senderPwd(entity.getSenderPwd())
+                .URL(entity.getURL())
+                .testUrl(entity.getTestUrl())
+                .build();
     }
+    
     public VshepData toEntity(VshepDataDTO dto) {
-        return new VshepData(
-                dto.getId(),
-                dto.getClientId(),
-                dto.getServiceId(),
-                dto.getSenderId(),
-                dto.getSenderPwd(),
-                dto.getCert(),
-                dto.getCertpwd(),
-                dto.getURL(),
-                dto.getTestUrl());
+        if (dto == null) {
+            return null;
+        }
+        
+        VshepData entity = new VshepData();
+        entity.setId(dto.getId());
+        entity.setClientId(dto.getClientId());
+        entity.setServiceId(dto.getServiceId());
+        entity.setSenderId(dto.getSenderId());
+        entity.setSenderPwd(dto.getSenderPwd());
+        entity.setURL(dto.getURL());
+        entity.setTestUrl(dto.getTestUrl());
+        
+        return entity;
     }
 }

@@ -36,8 +36,15 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label for="certpwd" class="form-label">Пароль сертификата</label>
-                                <input type="password" class="form-control" id="certpwd" name="certpwd" placeholder="Оставить пустым чтобы сохранить текущий пароль">
+                                <label for="certId" class="form-label">Сертификат</label>
+                                <select class="form-control" id="certId" name="certId">
+                                    <option value="">Выберите сертификат</option>
+                                    <option th:each="cert : ${certificates}"
+                                            th:value="${cert.id}"
+                                            th:text="${cert.issuedBy + ' (выдан: ' + cert.issuedAt + ', истекает: ' + cert.expiresAt + ')'}"
+                                            th:selected="${cert.id == vshepData.certId}">
+                                    </option>
+                                </select>
                             </div>
                             
                             <div class="mb-3">
@@ -46,14 +53,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="url" class="form-label">TEST URL</label>
+                                <label for="testUrl" class="form-label">TEST URL</label>
                                 <input type="url" class="form-control" id="testUrl" name="testUrl" th:value="${vshepData.testUrl}">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="cert" class="form-label">Файл сертификата (.p12)</label>
-                                <input type="file" class="form-control" id="cert" name="cert" accept=".p12">
-                                <small class="form-text text-muted">Оставить пустым чтобы сохранить текущий сертификат</small>
                             </div>
                             
                             <div class="d-flex justify-content-between">

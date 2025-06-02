@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,18 +31,6 @@ public class VshepDataController {
         return vshepDataService.getVshepDataById(id);
     }
 
-    @GetMapping("/{id}/data")
-    public ResponseEntity<byte[]> getVshepData(@PathVariable Long id) {
-        Optional<VshepDataDTO> vshepData = Optional.ofNullable(vshepDataService.getVshepDataById(id));
-        if (vshepData.isPresent()) {
-            byte[] data = vshepData.get().getCert();
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=cert.p12")
-                    .body(data);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-    }
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> addVshepData(@RequestParam String clientId,
                                                @RequestParam String serviceId,
@@ -56,7 +45,7 @@ public class VshepDataController {
                     .serviceId(serviceId)
                     .senderId(senderId)
                     .senderPwd(senderPwd)
-                    .cert(cert.getBytes())
+                    .cert(Base64.getEncoder().encodeToString(cert.getBytes()))
                     .certpwd(certpwd)
                     .URL(url)
                     .build());
@@ -88,7 +77,7 @@ public class VshepDataController {
 
         if (cert != null && !cert.isEmpty()) {
             try {
-                vshepDataDTO.setCert(cert.getBytes());
+                vshepDataDTO.setCert(Base64.getEncoder().encodeToString(cert.getBytes()));
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .body("Error reading certificate file: " + e.getMessage());

@@ -1,6 +1,5 @@
 package kz.bdl.service;
 
-import kz.bdl.dto.LocationDTO;
 import kz.bdl.dto.VshepDataDTO;
 import org.springframework.http.ResponseEntity;
 

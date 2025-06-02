@@ -19,6 +19,7 @@
                         <th>ID клиента</th>
                         <th>ID сервиса</th>
                         <th>ID отправителя</th>
+                        <th>Сертификат</th>
                         <th>Действия</th>
                     </tr>
                 </thead>
@@ -29,10 +30,18 @@
                         <td th:text="${vshepData.serviceId}"></td>
                         <td th:text="${vshepData.senderId}"></td>
                         <td>
+                            <span th:if="${vshepData.certId != null}"
+                               class="text"
+                               th:text="${vshepData.certIssuedBy}">
+                            </span>
+                            <span th:unless="${vshepData.certId != null}" class="text-muted">
+                                Не выбран
+                            </span>
+                        </td>
+                        <td>
                             <div class="btn-group" role="group">
                                 <a th:href="@{/vshep-data-view/{id}(id=${vshepData.id})}" class="btn btn-info btn-sm">Просмотр</a>
                                 <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning btn-sm">Изменить</a>
-                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success btn-sm">Скачать серт</a>
                                 <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-secondary btn-sm">Регионы</a>
                             </div>
                         </td>

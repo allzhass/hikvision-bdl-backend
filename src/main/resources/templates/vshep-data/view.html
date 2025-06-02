@@ -45,8 +45,14 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Статус сертификата</label>
-                            <p th:text="${vshepData.cert != null ? 'Текущий сертификат' : 'Сертификат отсутствует'}" class="form-control-static"></p>
+                            <label class="form-label fw-bold">Сертификат</label>
+                            <p th:if="${vshepData.certId != null}"
+                                class="form-control-static"
+                                th:text="${vshepData.certIssuedBy}">
+                            </p>
+                            <p th:unless="${vshepData.certId != null}" class="form-control-static text-muted">
+                                Сертификат не выбран
+                            </p>
                         </div>
 
                         <div class="mt-4">
@@ -54,12 +60,9 @@
                             <a th:href="@{/region-view/vshep-data/{id}(id=${vshepData.id})}" class="btn btn-primary">Просмотр регионов</a>
                         </div>
                         
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mt-4">
                             <a href="/vshep-data-view" class="btn btn-secondary">Вернуться в список</a>
-                            <div>
-                                <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning">Изменить</a>
-                                <a th:href="@{/vshep-data-view/{id}/download(id=${vshepData.id})}" class="btn btn-success">Скачать сертификат</a>
-                            </div>
+                            <a th:href="@{/vshep-data-view/edit/{id}(id=${vshepData.id})}" class="btn btn-warning">Изменить</a>
                         </div>
                     </div>
                 </div>

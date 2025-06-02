@@ -2,21 +2,21 @@ package kz.bdl.controller;
 
 import kz.bdl.dto.VshepDataDTO;
 import kz.bdl.service.VshepDataService;
+import kz.bdl.service.CertificateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/vshep-data-view")
 public class VshepDataViewController {
     @Autowired
     private VshepDataService vshepDataService;
+    
+    @Autowired
+    private CertificateDataService certificateDataService;
 
     @GetMapping
     public String getAllVshepData(Model model) {
@@ -30,14 +30,10 @@ public class VshepDataViewController {
         return "vshep-data/view";
     }
 
-    @GetMapping("/{id}/download")
-    public String downloadVshepData(@PathVariable Long id) {
-        return "redirect:/vshep-data/" + id + "/data";
-    }
-
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("vshepData", new VshepDataDTO());
+        model.addAttribute("certificates", certificateDataService.findAll());
         return "vshep-data/add";
     }
 
@@ -46,30 +42,25 @@ public class VshepDataViewController {
                               @RequestParam String serviceId,
                               @RequestParam String senderId,
                               @RequestParam String senderPwd,
-                              @RequestParam String certpwd,
                               @RequestParam(value = "url", required = false, defaultValue = "") String url,
                               @RequestParam(value = "testUrl", required = false, defaultValue = "") String testUrl,
-                              @RequestParam(value = "cert") MultipartFile cert) {
-        try {
-            vshepDataService.addVshepData(VshepDataDTO.builder()
-                    .clientId(clientId)
-                    .serviceId(serviceId)
-                    .senderId(senderId)
-                    .senderPwd(senderPwd)
-                    .cert(cert.getBytes())
-                    .certpwd(certpwd)
-                    .URL(url)
-                    .testUrl(testUrl)
-                    .build());
-            return "redirect:/vshep-data-view";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                              @RequestParam(value = "certId", required = false) Long certId) {
+        vshepDataService.addVshepData(VshepDataDTO.builder()
+                .clientId(clientId)
+                .serviceId(serviceId)
+                .senderId(senderId)
+                .senderPwd(senderPwd)
+                .URL(url)
+                .testUrl(testUrl)
+                .certId(certId)
+                .build());
+        return "redirect:/vshep-data-view";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         model.addAttribute("vshepData", vshepDataService.getVshepDataById(id));
+        model.addAttribute("certificates", certificateDataService.findAll());
         return "vshep-data/edit";
     }
 
@@ -79,10 +70,9 @@ public class VshepDataViewController {
                                  @RequestParam(value = "serviceId", required = false) String serviceId,
                                  @RequestParam(value = "senderId", required = false) String senderId,
                                  @RequestParam(value = "senderPwd", required = false) String senderPwd,
-                                 @RequestParam(value = "certpwd", required = false) String certpwd,
                                  @RequestParam(value = "url", required = false) String url,
                                  @RequestParam(value = "testUrl", required = false) String testUrl,
-                                 @RequestParam(value = "cert", required = false) MultipartFile cert) {
+                                 @RequestParam(value = "certId", required = false) Long certId) {
         VshepDataDTO vshepDataDTO = vshepDataService.getVshepDataById(id);
         if (vshepDataDTO == null) {
             return "redirect:/vshep-data-view";
@@ -92,17 +82,9 @@ public class VshepDataViewController {
         if (serviceId != null) vshepDataDTO.setServiceId(serviceId);
         if (senderId != null) vshepDataDTO.setSenderId(senderId);
         if (senderPwd != null) vshepDataDTO.setSenderPwd(senderPwd);
-        if (certpwd != null) vshepDataDTO.setCertpwd(certpwd);
         if (url != null) vshepDataDTO.setURL(url);
         if (testUrl != null) vshepDataDTO.setTestUrl(testUrl);
-
-        if (cert != null && !cert.isEmpty()) {
-            try {
-                vshepDataDTO.setCert(cert.getBytes());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        if (certId != null) vshepDataDTO.setCertId(certId);
 
         vshepDataService.changeVshepData(vshepDataDTO);
         return "redirect:/vshep-data-view";
