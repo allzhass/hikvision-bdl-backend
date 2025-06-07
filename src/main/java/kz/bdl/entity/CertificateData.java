@@ -29,5 +29,6 @@ public class CertificateData {
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @Basic(fetch = FetchType.LAZY)
     private String cert;
 }

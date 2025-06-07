@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VshepDataDTO {
     private Long id;
+    private String name;
     private Long certId;
     private String certIssuedBy;
     private String clientId;
     private String serviceId;
     private String senderId;
     private String senderPwd;
-    private String cert;
-    private String certpwd;
+    private String source;
     private String URL;
     private String testUrl;
 }

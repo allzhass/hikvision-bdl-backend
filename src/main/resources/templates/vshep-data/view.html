@@ -18,6 +18,11 @@
                             <label class="form-label fw-bold">ID</label>
                             <p th:text="${vshepData.id}" class="form-control-static"></p>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Назначение</label>
+                            <p th:text="${vshepData.name}" class="form-control-static"></p>
+                        </div>
                         
                         <div class="mb-3">
                             <label class="form-label fw-bold">ID клиента</label>
@@ -33,6 +38,11 @@
                             <label class="form-label fw-bold">ID отправителя</label>
                             <p th:text="${vshepData.senderId}" class="form-control-static"></p>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Источник</label>
+                            <p th:text="${vshepData.source}" class="form-control-static"></p>
+                        </div>
                         
                         <div class="mb-3">
                             <label class="form-label fw-bold">URL</label>
@@ -43,7 +53,7 @@
                             <label class="form-label fw-bold">TEST URL</label>
                             <p th:text="${vshepData.testUrl}" class="form-control-static"></p>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label fw-bold">Сертификат</label>
                             <p th:if="${vshepData.certId != null}"

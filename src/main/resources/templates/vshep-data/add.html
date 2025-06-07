@@ -16,10 +16,15 @@
                     <div class="card-body">
                         <form th:action="@{/vshep-data-view/add}" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
+                                <label for="name" class="form-label">Назначение</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="clientId" class="form-label">ID клиента</label>
                                 <input type="text" class="form-control" id="clientId" name="clientId" required>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="serviceId" class="form-label">ID сервиса</label>
                                 <input type="text" class="form-control" id="serviceId" name="serviceId" required>
@@ -33,6 +38,11 @@
                             <div class="mb-3">
                                 <label for="senderPwd" class="form-label">Пароль отправителя</label>
                                 <input type="password" class="form-control" id="senderPwd" name="senderPwd" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="source" class="form-label">Источник</label>
+                                <input type="text" class="form-control" id="source" name="source" required>
                             </div>
                             
                             <div class="mb-3">

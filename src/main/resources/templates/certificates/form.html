@@ -10,28 +10,27 @@
         <div class="container mt-4">
             <h2 th:text="${certificate.id == null ? 'Добавить новый сертификат' : 'Изменить сертификат'}"></h2>
             
-            <form th:action="@{/certificates/save}" th:object="${certificate}" method="post" enctype="multipart/form-data">
-                <input type="hidden" th:field="*{id}" />
-                <input type="hidden" th:field="*{certpwd}" th:unless="${certificate.id == null}" />
+            <form th:action="@{/certificates/save}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${certificate.id}" />
                 
                 <div class="mb-3">
                     <label for="issuedBy" class="form-label">Владелец</label>
-                    <input type="text" class="form-control" id="issuedBy" th:field="*{issuedBy}" required>
+                    <input type="text" class="form-control" id="issuedBy" name="issuedBy" th:value="${certificate.issuedBy}" required>
                 </div>
                 
                 <div class="mb-3">
                     <label for="issuedAt" class="form-label">Выпуск</label>
-                    <input type="date" class="form-control" id="issuedAt" th:field="*{issuedAt}" required>
+                    <input type="date" class="form-control" id="issuedAt" name="issuedAt" th:value="${certificate.issuedAt}" required>
                 </div>
                 
                 <div class="mb-3">
                     <label for="expiresAt" class="form-label">Срок</label>
-                    <input type="date" class="form-control" id="expiresAt" th:field="*{expiresAt}" required>
+                    <input type="date" class="form-control" id="expiresAt" name="expiresAt" th:value="${certificate.expiresAt}" required>
                 </div>
                 
                 <div class="mb-3">
                     <label for="certpwd" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="certpwd" th:field="*{certpwd}" th:required="${certificate.id == null}">
+                    <input type="password" class="form-control" id="certpwd" name="certpwd" th:required="${certificate.id == null}">
                     <small class="form-text text-muted" th:if="${certificate.id != null}">Оставьте пустым, чтобы сохранить текущий пароль</small>
                 </div>
                 

@@ -23,10 +23,11 @@ public class VshepDataServiceImpl implements VshepDataService {
 
     @Override
     public List<VshepDataDTO> getAllVshepData() {
-        return vshepDataRepository.findAll().stream().map(vshepDataConverter::toDTO).collect(Collectors.toList());
+        return vshepDataRepository.findAll().stream().map(vshepDataConverter::toDTOShort).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public VshepDataDTO getVshepDataById(Long id) {
         return vshepDataRepository.findById(id).map(vshepDataConverter::toDTO).orElse(null);
     }

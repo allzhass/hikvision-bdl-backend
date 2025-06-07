@@ -15,7 +15,7 @@ public class VshepData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cert_id")
     private CertificateData certId;
 
@@ -30,6 +30,12 @@ public class VshepData {
 
     @Column(nullable = false)
     private String senderPwd;
+
+    @Column(nullable = false)
+    private String source;
+
+    @Column
+    private String name;
 
     @Column
     private String URL;

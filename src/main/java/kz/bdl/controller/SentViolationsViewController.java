@@ -2,6 +2,7 @@ package kz.bdl.controller;
 
 import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.service.SentViolationsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,15 +17,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/sent-violations-view")
+@Slf4j
 public class SentViolationsViewController {
     @Autowired
     private SentViolationsService sentViolationsService;
 
     @GetMapping
     public String getAllSentViolations(Model model) {
+        log.info("getAllSentViolations start");
         List<SentViolationsDTO> violations = sentViolationsService.getAllSentViolations();
         model.addAttribute("violations", violations);
         model.addAttribute("title", "All Sent Violations");
+        log.info("getAllSentViolations end");
         return "sent-violations/list";
     }
 
@@ -35,6 +39,7 @@ public class SentViolationsViewController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Model model) {
+        log.info("getSentViolationsByCameraId start: cameraName={}, cameraIp={}, page={}, size={}", cameraName, cameraIp, page, size);
 
         if (cameraIp != null && !cameraIp.isEmpty()) {
             Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolationsByCameraIp(cameraIp, page, size);
@@ -51,8 +56,10 @@ public class SentViolationsViewController {
             model.addAttribute("title", "Sent Violations by Camera Name");
             model.addAttribute("cameraName", cameraName);
         } else {
+            log.info("getSentViolationsByCameraId end - redirecting to paginated view");
             return "redirect:/sent-violations-view/paginated";
         }
+        log.info("getSentViolationsByCameraId end");
         return "sent-violations/paginated-list";
     }
 
@@ -61,6 +68,7 @@ public class SentViolationsViewController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Model model) {
+        log.info("getPaginatedList start: page={}, size={}", page, size);
         Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolations(page, size);
         
         model.addAttribute("violations", violationsPage.getContent());
@@ -68,12 +76,16 @@ public class SentViolationsViewController {
         model.addAttribute("totalPages", violationsPage.getTotalPages());
         model.addAttribute("title", "Sent Violations (Paginated)");
         
+        log.info("getPaginatedList end");
         return "sent-violations/paginated-list";
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     public SentViolationsDTO getSentViolationById(@PathVariable Long id) {
-        return sentViolationsService.getSentViolationById(id);
+        log.info("getSentViolationById start: {}", id);
+        SentViolationsDTO result = sentViolationsService.getSentViolationById(id);
+        log.info("getSentViolationById end");
+        return result;
     }
 }

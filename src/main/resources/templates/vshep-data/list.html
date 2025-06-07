@@ -16,28 +16,22 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Назначение</th>
                         <th>ID клиента</th>
                         <th>ID сервиса</th>
                         <th>ID отправителя</th>
-                        <th>Сертификат</th>
+                        <th>Источник</th>
                         <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="vshepData : ${vshepDataList}">
                         <td th:text="${vshepData.id}"></td>
+                        <td th:text="${vshepData.name}"></td>
                         <td th:text="${vshepData.clientId}"></td>
                         <td th:text="${vshepData.serviceId}"></td>
                         <td th:text="${vshepData.senderId}"></td>
-                        <td>
-                            <span th:if="${vshepData.certId != null}"
-                               class="text"
-                               th:text="${vshepData.certIssuedBy}">
-                            </span>
-                            <span th:unless="${vshepData.certId != null}" class="text-muted">
-                                Не выбран
-                            </span>
-                        </td>
+                        <td th:text="${vshepData.source}"></td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a th:href="@{/vshep-data-view/{id}(id=${vshepData.id})}" class="btn btn-info btn-sm">Просмотр</a>
