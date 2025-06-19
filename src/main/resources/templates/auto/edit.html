@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Редактирование автомобиля</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <h2>Редактировать автомобиль</h2>
+        
+        <form th:action="@{/autos-view/update/{id}(id=${auto.id})}" th:object="${auto}" method="post" class="mt-4">
+            <div class="mb-3">
+                <label for="plateNumber" class="form-label">Номер автомобиля</label>
+                <input type="text" class="form-control" id="plateNumber" th:field="*{plateNumber}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="isSendViolation" th:field="*{isSendViolation}">
+                <label class="form-check-label" for="isSendViolation">Отправка нарушений</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Обновить</button>
+            <a th:href="@{/autos-view}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</body>
+</html> 
