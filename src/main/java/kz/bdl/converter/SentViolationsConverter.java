@@ -2,11 +2,22 @@ package kz.bdl.converter;
 
 import kz.bdl.dto.SentViolationsDTO;
 import kz.bdl.entity.SentViolations;
+import kz.bdl.util.TimezoneUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class SentViolationsConverter {
+    
+    @Autowired
+    private TimezoneUtil timezoneUtil;
+    
     public SentViolationsDTO toDTO(SentViolations sentViolations) {
+        // Convert GMT time to local time using utility
+        LocalDateTime localCreatedAt = timezoneUtil.convertGmtToLocal(sentViolations.getCreatedAt());
+        
         return new SentViolationsDTO(
             sentViolations.getId(),
                 sentViolations.getCameraViolation() != null ? sentViolations.getCameraViolation().getCamera().getId() : null,
@@ -18,7 +29,7 @@ public class SentViolationsConverter {
             sentViolations.getRequest(),
             sentViolations.getResponse(),
             sentViolations.getIsError(),
-            sentViolations.getCreatedAt(),
+            localCreatedAt,
             sentViolations.getPlateNumber(),
             sentViolations.getMessageId()
         );

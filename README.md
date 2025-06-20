@@ -77,7 +77,37 @@ docker run -p 8080:8080 bdl-backend
 
 This project is proprietary and confidential. 
 
+## Timezone Configuration
+
+The application is configured to handle timezone conversion for the `createdAt` field in sent violations. The system:
+
+1. **Stores time in GMT**: All `createdAt` timestamps are stored in GMT/UTC in the database
+2. **Displays in local time**: Times are automatically converted to the configured local timezone for display
+3. **Configurable timezone**: The target timezone can be configured via the `server.timezone` property
+
+### Configuration
+
+Set the desired timezone in `application.yaml`:
+
+```yaml
+server:
+  timezone: Asia/Almaty  # Default timezone for display
 ```
+
+### Supported Timezones
+
+Common timezone IDs that can be used:
+- `Asia/Almaty` - Kazakhstan time (UTC+6)
+- `Europe/Moscow` - Moscow time (UTC+3)
+- `UTC` - Coordinated Universal Time
+- `America/New_York` - Eastern Time
+- `Europe/London` - British Time
+
+### Implementation Details
+
+- **TimezoneUtil**: Utility class for timezone conversion
+- **SentViolationsConverter**: Automatically converts GMT times to local time
+- **TimezoneConfig**: Sets the default timezone for the application
 
 ## Тестовые учетные записи
 
