@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Просмотр пользователя</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Просмотр пользователя</h2>
+            <div>
+                <a href="/user-view" class="btn btn-secondary">Назад к списку</a>
+                <a th:href="@{/user-view/edit/{id}(id=${user.id})}" class="btn btn-warning">Изменить</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="card-title">Информация о пользователе</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>ID:</th>
+                                <td th:text="${user.id}"></td>
+                            </tr>
+                            <tr>
+                                <th>Имя пользователя:</th>
+                                <td th:text="${user.username}"></td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td th:text="${user.email}"></td>
+                            </tr>
+                            <tr>
+                                <th>Имя:</th>
+                                <td th:text="${user.firstName}"></td>
+                            </tr>
+                            <tr>
+                                <th>Фамилия:</th>
+                                <td th:text="${user.lastName}"></td>
+                            </tr>
+                            <tr>
+                                <th>Роль:</th>
+                                <td>
+                                    <a th:href="@{/role-view/{id}(id=${user.roleId})}" 
+                                       class="btn btn-outline-primary btn-sm" 
+                                       th:text="${user.roleId}">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Статус:</th>
+                                <td>
+                                    <span th:if="${user.isActive}" class="badge bg-success">Активен</span>
+                                    <span th:unless="${user.isActive}" class="badge bg-danger">Неактивен</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Дата создания:</th>
+                                <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                            <tr>
+                                <th>Дата обновления:</th>
+                                <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <form th:if="${user.isActive}" th:action="@{/user-view/{id}/deactivate(id=${user.id})}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Деактивировать пользователя?')">Деактивировать пользователя</button>
+            </form>
+            <form th:unless="${user.isActive}" th:action="@{/user-view/{id}/activate(id=${user.id})}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-success" onclick="return confirm('Активировать пользователя?')">Активировать пользователя</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

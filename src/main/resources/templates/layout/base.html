@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,37 +16,69 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/vshep-data-view">ВШЭП</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/certificates">Сертификаты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/region-view">Регионы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/location-view">Адреса</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/apk-view">АПК</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/camera-view">Камеры</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/violation-view">Нарушения</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/autos-view">Авто</a>
-                    </li>
-                    <li class="nav-item">
+                    <!-- SentViolations - accessible by OPERATOR, MANAGER, ADMIN -->
+                    <li class="nav-item" sec:authorize="hasAnyRole('OPERATOR', 'MANAGER', 'ADMIN')">
                         <a class="nav-link" href="/sent-violations-view/paginated">Статусы нарушений</a>
                     </li>
+                    
+                    <!-- Other modules - accessible by MANAGER, ADMIN only -->
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/vshep-data-view">ВШЭП</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/certificates">Сертификаты</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/region-view">Регионы</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/location-view">Адреса</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/apk-view">АПК</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/camera-view">Камеры</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/violation-view">Нарушения</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                        <a class="nav-link" href="/autos-view">Авто</a>
+                    </li>
+                    
+                    <!-- User and Role Management - ADMIN only -->
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Управление
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user-view">Пользователи</a></li>
+                            <li><a class="dropdown-item" href="/role-view">Роли</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                <form th:action="@{/logout}" method="post" class="d-flex">
-                    <button class="btn btn-outline-light" type="submit">Выход</button>
-                </form>
+                
+                <!-- User info and logout -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <span sec:authentication="name">Пользователь</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><span class="dropdown-item-text">
+                                <small class="text-muted">Роль:</small><br>
+                                <span sec:authentication="principal.authorities">Роль</span>
+                            </span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="dropdown-item p-0">
+                                    <button class="btn btn-link dropdown-item" type="submit">Выход</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Просмотр роли</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Просмотр роли</h2>
+            <div>
+                <a href="/role-view" class="btn btn-secondary">Назад к списку</a>
+                <a th:href="@{/role-view/edit/{id}(id=${role.id})}" class="btn btn-warning">Изменить</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="card-title">Информация о роли</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>ID:</th>
+                                <td th:text="${role.id}"></td>
+                            </tr>
+                            <tr>
+                                <th>Название:</th>
+                                <td th:text="${role.name}"></td>
+                            </tr>
+                            <tr>
+                                <th>Описание:</th>
+                                <td th:text="${role.description}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a th:href="@{/user-view/role/{id}(id=${role.id})}" class="btn btn-primary">
+                Показать пользователей с этой ролью
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

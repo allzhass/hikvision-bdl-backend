@@ -76,3 +76,14 @@ docker run -p 8080:8080 bdl-backend
 ## License
 
 This project is proprietary and confidential. 
+
+```
+
+## Тестовые учетные записи
+
+ADMIN:
+admin / admin123
+MANAGER:
+manager / manager123
+OPERATOR:
+operator / operator123
