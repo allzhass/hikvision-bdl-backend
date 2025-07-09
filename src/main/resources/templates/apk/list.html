@@ -13,45 +13,25 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                console.log('APK List: Starting certificate expiry check...');
                 const rows = document.querySelectorAll('tbody tr');
                 const now = new Date();
                 const tenDaysFromNow = new Date(now.getTime() + (10 * 24 * 60 * 60 * 1000)); // 10 days in milliseconds
-                
-                console.log('APK List: Current date:', now.toISOString());
-                console.log('APK List: 10 days from now:', tenDaysFromNow.toISOString());
-                console.log('APK List: Found', rows.length, 'rows to check');
                 
                 rows.forEach(function(row, index) {
                     const expiryCell = row.querySelector('td[data-expiry]');
                     if (expiryCell) {
                         const expiryData = expiryCell.getAttribute('data-expiry');
                         if (expiryData) {
-                            // Parse the expiry date from the data attribute
                             const expiryDate = new Date(expiryData);
-                            const apkId = row.querySelector('td:first-child').textContent.trim();
                             
-                            console.log(`APK List: Row ${index + 1} (ID: ${apkId}) - Expiry date:`, expiryDate.toISOString());
-                            
-                            // Check if expiry date is within 10 days from now OR already expired
                             if (expiryDate <= tenDaysFromNow && expiryDate >= now) {
-                                console.log(`APK List: Row ${index + 1} (ID: ${apkId}) - Adding warning class (expires within 10 days)`);
                                 row.classList.add('table-warning');
                             } else if (expiryDate < now) {
-                                console.log(`APK List: Row ${index + 1} (ID: ${apkId}) - Adding danger class (already expired)`);
                                 row.classList.add('table-danger');
-                            } else {
-                                console.log(`APK List: Row ${index + 1} (ID: ${apkId}) - No highlighting needed (expires in more than 10 days)`);
                             }
-                        } else {
-                            console.log(`APK List: Row ${index + 1} - No expiry data found`);
                         }
-                    } else {
-                        console.log(`APK List: Row ${index + 1} - No expiry cell found`);
                     }
                 });
-                
-                console.log('APK List: Certificate expiry check completed');
             });
         </script>
 

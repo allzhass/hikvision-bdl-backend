@@ -16,8 +16,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <!-- SentViolations - accessible by OPERATOR, MANAGER, ADMIN -->
-                    <li class="nav-item" sec:authorize="hasAnyRole('OPERATOR', 'MANAGER', 'ADMIN')">
+                    <!-- SentViolations - accessible by OPERATOR, MANAGER, ADMIN, AUTO_MANAGER -->
+                    <li class="nav-item" sec:authorize="hasAnyRole('OPERATOR', 'MANAGER', 'ADMIN', 'AUTO_MANAGER')">
                         <a class="nav-link" href="/sent-violations-view/paginated">Статусы нарушений</a>
                     </li>
                     
@@ -43,7 +43,7 @@
                     <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
                         <a class="nav-link" href="/violation-view">Нарушения</a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+                    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'AUTO_MANAGER')">
                         <a class="nav-link" href="/autos-view">Авто</a>
                     </li>
                     

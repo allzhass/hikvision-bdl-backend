@@ -99,10 +99,8 @@ public class AutoViewController {
             
             String line;
             boolean isFirstLine = true;
-            int lineNumber = 0;
 
             while ((line = reader.readLine()) != null) {
-                lineNumber++;
                 if (isFirstLine) {
                     isFirstLine = false;
                     continue; // Skip header row

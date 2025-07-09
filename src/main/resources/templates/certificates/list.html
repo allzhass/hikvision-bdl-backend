@@ -55,10 +55,8 @@
                         const expiresAt = new Date(expiresAtStr);
                         
                         if (expiresAt < today) {
-                            // Expired - red background
                             row.classList.add('table-danger');
                         } else if (expiresAt < warningThreshold) {
-                            // Expiring within 10 days - yellow background
                             row.classList.add('table-warning');
                         }
                     }

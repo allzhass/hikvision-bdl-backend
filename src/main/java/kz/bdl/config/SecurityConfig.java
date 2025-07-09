@@ -30,8 +30,8 @@ public class SecurityConfig {
                 // User and role management - ADMIN only
                 .requestMatchers("/user-view/**", "/users/**", "/role-view/**", "/roles/**").hasRole("ADMIN")
                 
-                // SentViolationViewController - OPERATOR, MANAGER, ADMIN
-                .requestMatchers("/sent-violations-view/**", "/sent-violations/**").hasAnyRole("OPERATOR", "MANAGER", "ADMIN")
+                // SentViolationViewController - OPERATOR, MANAGER, ADMIN, AUTO_MANAGER
+                .requestMatchers("/sent-violations-view/**", "/sent-violations/**").hasAnyRole("OPERATOR", "MANAGER", "ADMIN", "AUTO_MANAGER")
                 
                 // All other view controllers - MANAGER, ADMIN (excluding user/role management)
                 .requestMatchers("/vshep-data-view/**", "/vshep-data/**").hasAnyRole("MANAGER", "ADMIN")
@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/apk-view/**", "/apk/**").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers("/camera-view/**", "/cameras/**").hasAnyRole("MANAGER", "ADMIN")
                 .requestMatchers("/violation-view/**", "/violations/**").hasAnyRole("MANAGER", "ADMIN")
-                .requestMatchers("/autos-view/**", "/autos/**").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers("/autos-view/**", "/autos/**").hasAnyRole("MANAGER", "ADMIN", "AUTO_MANAGER")
                 
                 // Login page
                 .requestMatchers("/login").permitAll()

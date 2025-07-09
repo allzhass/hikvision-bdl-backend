@@ -36,6 +36,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 // Operator only has access to SentViolationViewController
                 response.sendRedirect("/sent-violations-view/paginated");
                 return;
+            } else if (role.equals("ROLE_AUTO_MANAGER")) {
+                // Auto manager has access to auto management and sent violations
+                response.sendRedirect("/sent-violations-view/paginated");
+                return;
             }
         }
         

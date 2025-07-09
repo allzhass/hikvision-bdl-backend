@@ -51,6 +51,14 @@ public class DataInitializationService implements CommandLineRunner {
             managerRole.setDescription("Manager role with full access except managing users and roles");
             roleRepository.save(managerRole);
         }
+
+        // Create AUTO_MANAGER role if it doesn't exist
+        if (!roleRepository.findByName("AUTO_MANAGER").isPresent()) {
+            Role autoManagerRole = new Role();
+            autoManagerRole.setName("AUTO_MANAGER");
+            autoManagerRole.setDescription("Auto manager role with access to auto management and sent violations");
+            roleRepository.save(autoManagerRole);
+        }
     }
 
     private void initializeUsers() {
@@ -103,6 +111,23 @@ public class DataInitializationService implements CommandLineRunner {
             operatorUser.setRole(operatorRole);
 
             userRepository.save(operatorUser);
+        }
+
+        // Create auto manager user if it doesn't exist
+        if (!userRepository.findByUsername("auto_manager").isPresent()) {
+            Role autoManagerRole = roleRepository.findByName("AUTO_MANAGER")
+                    .orElseThrow(() -> new RuntimeException("Auto manager role not found"));
+
+            User autoManagerUser = new User();
+            autoManagerUser.setUsername("auto_manager");
+            autoManagerUser.setPassword(passwordEncoder.encode("auto123"));
+            autoManagerUser.setEmail("auto_manager@bdl.kz");
+            autoManagerUser.setFirstName("Auto");
+            autoManagerUser.setLastName("Manager");
+            autoManagerUser.setIsActive(true);
+            autoManagerUser.setRole(autoManagerRole);
+
+            userRepository.save(autoManagerUser);
         }
     }
 } 
