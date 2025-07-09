@@ -3,6 +3,7 @@ package kz.bdl.service;
 import kz.bdl.entity.CertificateData;
 import kz.bdl.repository.CertificateDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class CertificateDataService {
     }
 
     public List<CertificateData> findAll() {
-        return certificateDataRepository.findAll();
+        return certificateDataRepository.findAll(Sort.by(Sort.Direction.ASC, "expiresAt"));
     }
 
     public Optional<CertificateData> findById(Long id) {

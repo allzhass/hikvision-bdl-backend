@@ -29,7 +29,7 @@ public class APKServiceImpl implements APKService {
 
     @Override
     public List<APKDTO> getAllAPK() {
-        return apkRepository.findAll().stream().map(apkConverter::toDTO).collect(Collectors.toList());
+        return apkRepository.findAll(org.springframework.data.domain.Sort.by("certExpiry")).stream().map(apkConverter::toDTO).collect(Collectors.toList());
     }
 
     @Override

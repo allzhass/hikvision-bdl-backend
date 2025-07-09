@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="cert : ${certificates}">
+                    <tr th:each="cert : ${certificates}" th:data-expires-at="${cert.expiresAt}">
                         <td th:text="${cert.id}"></td>
                         <td th:text="${cert.issuedBy}"></td>
                         <td th:text="${cert.issuedAt}"></td>
@@ -39,6 +39,32 @@
                         </td>
                     </tr>
                 </tbody>
+            </table>
+        </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const rows = document.querySelectorAll('tbody tr[data-expires-at]');
+                const today = new Date();
+                const warningThreshold = new Date();
+                warningThreshold.setDate(today.getDate() + 10);
+                
+                rows.forEach(function(row) {
+                    const expiresAtStr = row.getAttribute('data-expires-at');
+                    if (expiresAtStr) {
+                        const expiresAt = new Date(expiresAtStr);
+                        
+                        if (expiresAt < today) {
+                            // Expired - red background
+                            row.classList.add('table-danger');
+                        } else if (expiresAt < warningThreshold) {
+                            // Expiring within 10 days - yellow background
+                            row.classList.add('table-warning');
+                        }
+                    }
+                });
+            });
+        </script>
             </table>
         </div>
     </div>
