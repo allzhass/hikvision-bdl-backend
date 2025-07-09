@@ -21,6 +21,17 @@
                     </div>
                 </form>
             </div>
+            <div class="col-md-4">
+                <form th:action="@{/sent-violations-view/plate/search}" method="get" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Фильтр по ГРНЗ</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="plateNumber" th:value="${plateNumber}" placeholder="ГРНЗ">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="table-responsive">

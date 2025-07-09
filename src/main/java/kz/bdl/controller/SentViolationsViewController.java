@@ -80,6 +80,29 @@ public class SentViolationsViewController {
         return "sent-violations/paginated-list";
     }
 
+    @GetMapping("/plate/search")
+    public String getSentViolationsByPlateNumber(
+            @RequestParam(value = "plateNumber", required = false) String plateNumber,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        log.info("getSentViolationsByPlateNumber start: plateNumber={}, page={}, size={}", plateNumber, page, size);
+
+        if (plateNumber != null && !plateNumber.isEmpty()) {
+            Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolationsByPlateNumber(plateNumber, page, size);
+            model.addAttribute("violations", violationsPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", violationsPage.getTotalPages());
+            model.addAttribute("title", "Sent Violations by Plate Number");
+            model.addAttribute("plateNumber", plateNumber);
+        } else {
+            log.info("getSentViolationsByPlateNumber end - redirecting to paginated view");
+            return "redirect:/sent-violations-view/paginated";
+        }
+        log.info("getSentViolationsByPlateNumber end");
+        return "sent-violations/paginated-list";
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public SentViolationsDTO getSentViolationById(@PathVariable Long id) {
