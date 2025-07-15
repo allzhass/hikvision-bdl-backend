@@ -66,6 +66,14 @@ public class SentViolationsServiceImpl implements SentViolationsService {
     }
 
     @Override
+    @Transactional
+    public Page<SentViolationsDTO> getPaginatedSentViolationsByRegionCode(String regionCode, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return sentViolationsRepository.findByRegionCodeWithPagination(regionCode, pageable)
+                .map(sentViolationsConverter::toDTO);
+    }
+
+    @Override
     public SentViolationsDTO getSentViolationById(Long id) {
         return sentViolationsRepository.findById(id).map(sentViolationsConverter::toDTO).orElse(null);
     }

@@ -15,4 +15,5 @@ public interface SentViolationsService {
     Page<SentViolationsDTO> getPaginatedSentViolationsByCameraIp(String cameraIp, int page, int size);
     SentViolationsDTO getSentViolationById(Long id);
     Page<SentViolationsDTO> getPaginatedSentViolationsByPlateNumber(String plateNumber, int page, int size);
+    Page<SentViolationsDTO> getPaginatedSentViolationsByRegionCode(String regionCode, int page, int size);
 } 

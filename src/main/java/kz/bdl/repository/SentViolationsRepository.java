@@ -37,4 +37,7 @@ public interface SentViolationsRepository extends JpaRepository<SentViolations, 
 
     @Query("SELECT s FROM SentViolations s WHERE s.plateNumber = :plateNumber ORDER BY s.createdAt DESC")
     Page<SentViolations> findByPlateNumberWithPagination(@Param("plateNumber") String plateNumber, Pageable pageable);
+
+    @Query("SELECT s FROM SentViolations s WHERE s.cameraViolation.camera.apk.location.region.code = :regionCode ORDER BY s.createdAt DESC")
+    Page<SentViolations> findByRegionCodeWithPagination(@Param("regionCode") String regionCode, Pageable pageable);
 } 

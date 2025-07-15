@@ -117,3 +117,5 @@ MANAGER:
 manager / manager123
 OPERATOR:
 operator / operator123
+AUTO_MANAGER:
+auto_manager / auto123

@@ -103,6 +103,29 @@ public class SentViolationsViewController {
         return "sent-violations/paginated-list";
     }
 
+    @GetMapping("/region/search")
+    public String getSentViolationsByRegion(
+            @RequestParam(value = "region", required = false) String region,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        log.info("getSentViolationsByRegion start: region={}, page={}, size={}", region, page, size);
+
+        if (region != null && !region.isEmpty()) {
+            Page<SentViolationsDTO> violationsPage = sentViolationsService.getPaginatedSentViolationsByRegionCode(region, page, size);
+            model.addAttribute("violations", violationsPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", violationsPage.getTotalPages());
+            model.addAttribute("title", "Sent Violations by Region Code");
+            model.addAttribute("region", region);
+        } else {
+            log.info("getSentViolationsByRegion end - redirecting to paginated view");
+            return "redirect:/sent-violations-view/paginated";
+        }
+        log.info("getSentViolationsByRegion end");
+        return "sent-violations/paginated-list";
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public SentViolationsDTO getSentViolationById(@PathVariable Long id) {

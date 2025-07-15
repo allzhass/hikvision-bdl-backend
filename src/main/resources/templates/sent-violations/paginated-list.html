@@ -31,6 +31,17 @@
                     </div>
                 </form>
             </div>
+            <div class="col-md-4">
+                <form th:action="@{/sent-violations-view/region/search}" method="get" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Фильтр по региону</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="region" th:value="${region}" placeholder="Код региона">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="table-responsive">
