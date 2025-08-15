@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>CSV Import</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Импорт данных из CSV файла</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Success Message -->
+                        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <div th:utext="${success}"></div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div th:utext="${error}"></div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+
+                        <form th:action="@{/csv-import-view/upload}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Выберите CSV файл</label>
+                                <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                                <div class="form-text">
+                                    Файл должен содержать следующие колонки: region_code, location_name_ru, apk_device_number, apk_cert_number, apk_cert_from, apk_cert_to, camera_ip, camera_code, camera_direction
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Загрузить и импортировать</button>
+                                <a href="/region-view" class="btn btn-secondary ms-2">Назад к регионам</a>
+                            </div>
+                        </form>
+
+                        <div class="mt-4">
+                            <h5>Инструкция по импорту:</h5>
+                            <div class="alert alert-info">
+                                <h6>Формат CSV файла:</h6>
+                                <p>Файл должен содержать заголовок и данные в следующем формате:</p>
+                                <pre>region_code;location_name_ru;apk_device_number;apk_cert_number;apk_cert_from;apk_cert_to;camera_ip;camera_code;camera_direction</pre>
+                                
+                                <h6>Правила обработки данных:</h6>
+                                <ul>
+                                    <li><strong>region_code</strong> - код региона (должен существовать в системе)</li>
+                                    <li><strong>location_name_ru</strong> - название локации на русском языке</li>
+                                    <li><strong>apk_device_number</strong> - номер устройства АПК</li>
+                                    <li><strong>apk_cert_number</strong> - номер сертификата АПК</li>
+                                    <li><strong>apk_cert_from</strong> - дата выдачи сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
+                                    <li><strong>apk_cert_to</strong> - дата окончания сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
+                                    <li><strong>camera_ip</strong> - IP адрес камеры</li>
+                                    <li><strong>camera_code</strong> - код камеры</li>
+                                    <li><strong>camera_direction</strong> - направление камеры</li>
+                                </ul>
+
+                                <h6>Логика обработки:</h6>
+                                <ul>
+                                    <li>Если регион с указанным кодом не существует - ошибка</li>
+                                    <li>Если локация с указанным названием не существует - создается новая</li>
+                                    <li>Если АПК с указанным номером устройства существует - обновляется, иначе создается новый</li>
+                                    <li>Если камера с указанным кодом или IP существует - обновляется, иначе создается новая</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>Пример CSV файла:</h5>
+                            <div class="card">
+                                <div class="card-body">
+                                    <pre>region_code;location_name_ru;apk_device_number;apk_cert_number;apk_cert_from;apk_cert_to;camera_ip;camera_code;camera_direction
+ALM;Алматы центр;APK001;CERT001;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.100;CAM001;Север
+ALM;Алматы центр;APK002;CERT002;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.101;CAM002;Юг</pre>
+                                    <div class="mt-3">
+                                        <a href="/files/sample_import.csv" class="btn btn-outline-primary btn-sm" download>
+                                            <i class="bi bi-download"></i> Скачать пример файла
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

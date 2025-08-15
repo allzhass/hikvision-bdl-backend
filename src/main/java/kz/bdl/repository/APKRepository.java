@@ -13,4 +13,6 @@ public interface APKRepository extends JpaRepository<APK, Long> {
 
     @Query("SELECT a FROM APK a WHERE EXISTS (SELECT 1 FROM Camera с WHERE с.apk.id = a.id)")
     List<APK> findAllWithCameras();
+    
+    APK findByDeviceNumber(String deviceNumber);
 }

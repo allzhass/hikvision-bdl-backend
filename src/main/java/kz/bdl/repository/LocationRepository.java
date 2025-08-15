@@ -13,4 +13,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
 
     @Query("SELECT l FROM Location l WHERE EXISTS (SELECT 1 FROM APK a WHERE a.location.id = l.id)")
     List<Location> findAllWithApks();
+    
+    Location findByNameRuAndRegionId(String nameRu, Long regionId);
 }

@@ -13,4 +13,6 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
     List<Region> findAllWithLocations();
 
     List<Region> findByVshepDataId(Long vshepDataId);
+    
+    Region findByCode(String code);
 }

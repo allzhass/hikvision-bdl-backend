@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface CameraRepository extends JpaRepository<Camera, Long> {
     List<Camera> findByApkId(Long apkId);
+    
+    Camera findByCode(String code);
+    
+    Camera findByIp(String ip);
 }
