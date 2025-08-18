@@ -1,5 +1,0 @@
-region_code;location_name_ru;apk_device_number;apk_cert_number;apk_cert_from;apk_cert_to;camera_ip;camera_code;camera_direction
-ALM;Алматы центр;APK001;CERT001;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.100;CAM001;Север
-ALM;Алматы центр;APK002;CERT002;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.101;CAM002;Юг
-AST;Астана центр;APK003;CERT003;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.102;CAM003;Восток
-AST;Астана центр;APK004;CERT004;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.103;CAM004;Запад

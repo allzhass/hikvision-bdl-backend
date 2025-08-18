@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>CSV Import</title>
+    <title>Data Import</title>
 </head>
 <body>
     <div layout:fragment="content">
@@ -10,7 +10,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="mb-0">Импорт данных из CSV файла</h4>
+                        <h4 class="mb-0">Импорт данных из Excel файла</h4>
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -25,12 +25,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
 
-                        <form th:action="@{/csv-import-view/upload}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/data-import-view/upload/xlsx}" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label for="file" class="form-label">Выберите CSV файл</label>
-                                <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                                <label for="file" class="form-label">Выберите Excel файл</label>
+                                <input type="file" class="form-control" id="file" name="file" accept=".xlsx" required>
                                 <div class="form-text">
-                                    Файл должен содержать следующие колонки: region_code, location_name_ru, apk_device_number, apk_cert_number, apk_cert_from, apk_cert_to, camera_ip, camera_code, camera_direction
+                                    Файл должен содержать следующие колонки: №,IP камеры,Код камеры,Номер устройства,Код сертификата,начало,конец,Адрес,направление
                                 </div>
                             </div>
 
@@ -43,21 +43,22 @@
                         <div class="mt-4">
                             <h5>Инструкция по импорту:</h5>
                             <div class="alert alert-info">
-                                <h6>Формат CSV файла:</h6>
-                                <p>Файл должен содержать заголовок и данные в следующем формате:</p>
-                                <pre>region_code;location_name_ru;apk_device_number;apk_cert_number;apk_cert_from;apk_cert_to;camera_ip;camera_code;camera_direction</pre>
-                                
+                                <h6>Формат Excel файла:</h6>
+                                <p>Название вкладки должно соответствовать коду региона</p>
+                                <p>Таблица во вкладке должна содержать заголовок и данные в следующем формате:</p>
+                                <pre>№,IP камеры,Код камеры,Номер устройства,Код сертификата,начало,конец,Адрес,направление</pre>
+
                                 <h6>Правила обработки данных:</h6>
                                 <ul>
-                                    <li><strong>region_code</strong> - код региона (должен существовать в системе)</li>
-                                    <li><strong>location_name_ru</strong> - название локации на русском языке</li>
-                                    <li><strong>apk_device_number</strong> - номер устройства АПК</li>
-                                    <li><strong>apk_cert_number</strong> - номер сертификата АПК</li>
-                                    <li><strong>apk_cert_from</strong> - дата выдачи сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
-                                    <li><strong>apk_cert_to</strong> - дата окончания сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
-                                    <li><strong>camera_ip</strong> - IP адрес камеры</li>
-                                    <li><strong>camera_code</strong> - код камеры</li>
-                                    <li><strong>camera_direction</strong> - направление камеры</li>
+                                    <li><strong>№</strong> - номер строки</li>
+                                    <li><strong>IP камеры</strong> - IP адрес камеры</li>
+                                    <li><strong>Код камеры</strong> - код камеры</li>
+                                    <li><strong>Номер устройства</strong> - номер устройства АПК</li>
+                                    <li><strong>Код сертификата</strong> - номер сертификата АПК</li>
+                                    <li><strong>начало</strong> - дата выдачи сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
+                                    <li><strong>конец</strong> - дата окончания сертификата (формат: yyyy-MM-dd HH:mm:ss)</li>
+                                    <li><strong>Адрес</strong> - адрес локации</li>
+                                    <li><strong>направление</strong> - направление камеры</li>
                                 </ul>
 
                                 <h6>Логика обработки:</h6>
@@ -71,14 +72,15 @@
                         </div>
 
                         <div class="mt-4">
-                            <h5>Пример CSV файла:</h5>
+                            <h5>Пример Excel файла:</h5>
                             <div class="card">
                                 <div class="card-body">
-                                    <pre>region_code;location_name_ru;apk_device_number;apk_cert_number;apk_cert_from;apk_cert_to;camera_ip;camera_code;camera_direction
-ALM;Алматы центр;APK001;CERT001;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.100;CAM001;Север
-ALM;Алматы центр;APK002;CERT002;2024-01-01 00:00:00;2025-01-01 00:00:00;192.168.1.101;CAM002;Юг</pre>
+                                    <pre>
+                                        №,IP камеры,Код камеры,Номер устройства,Код сертификата,начало,конец,Адрес,направление
+1,192.168.1.100,CAM001,APK001,CERT001,2024-01-01 00:00:00,2025-01-01 00:00:00,Алматы центр,Север
+2,192.168.1.101,CAM001,APK002,CERT002,2024-01-01 00:00:00,2025-01-01 00:00:00,Алматы центр,Юг</pre>
                                     <div class="mt-3">
-                                        <a href="/files/sample_import.csv" class="btn btn-outline-primary btn-sm" download>
+                                        <a href="/files/sample_uka.xlsx" class="btn btn-outline-primary btn-sm" download>
                                             <i class="bi bi-download"></i> Скачать пример файла
                                         </a>
                                     </div>

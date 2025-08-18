@@ -1,6 +1,6 @@
 package kz.bdl.controller;
 
-import kz.bdl.service.CsvImportService;
+import kz.bdl.service.DataImportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,43 +13,43 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/csv-import-view")
+@RequestMapping("/data-import-view")
 @Slf4j
 public class CsvImportViewController {
 
-    @Autowired private CsvImportService csvImportService;
+    @Autowired private DataImportService dataImportService;
 
     @GetMapping
     public String showImportForm(Model model) {
         log.info("showImportForm start");
-        return "csv-import/import";
+        return "data-import/import";
     }
 
-    @PostMapping("/upload")
-    public String uploadCsvFile(@RequestParam("file") MultipartFile file, 
+    @PostMapping("/upload/xlsx")
+    public String uploadXlsxFile(@RequestParam("file") MultipartFile file, 
                                RedirectAttributes redirectAttributes) {
         log.info("uploadCsvFile start: {}", file.getOriginalFilename());
         
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Please select a file to upload");
-            return "redirect:/csv-import-view";
+            return "redirect:/data-import-view";
         }
 
-        if (!file.getOriginalFilename().toLowerCase().endsWith(".csv")) {
-            redirectAttributes.addFlashAttribute("error", "Please upload a CSV file");
-            return "redirect:/csv-import-view";
+        if (!file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+            redirectAttributes.addFlashAttribute("error", "Please upload a XLSX file");
+            return "redirect:/data-import-view";
         }
 
         try {
-            String result = csvImportService.importCsvData(file);
+            String result = dataImportService.importXlsxData(file);
             redirectAttributes.addFlashAttribute("success", result);
-            log.info("uploadCsvFile end: success");
+            log.info("uploadXlsxFile end: success");
         } catch (Exception e) {
-            String errorMessage = "Error importing CSV file: " + e.getMessage();
+            String errorMessage = "Error importing XLSX file: " + e.getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            log.error("uploadCsvFile end: error - {}", errorMessage);
+            log.error("uploadXlsxFile end: error - {}", errorMessage);
         }
 
-        return "redirect:/csv-import-view";
+        return "redirect:/data-import-view";
     }
 }
